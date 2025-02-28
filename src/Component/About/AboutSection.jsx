@@ -10,7 +10,7 @@ import {
 
 const AboutSection = () => {
   return (
-    <div className=" bg-background">
+    <div className="    bg-background">
       <div className="container-wrapper py-10">
         <div className=" text-center mx-auto pb-3 ">
           <div className="">
