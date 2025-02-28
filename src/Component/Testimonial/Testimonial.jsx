@@ -9,7 +9,7 @@ const Trail = () => {
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [banner, setBanner] = useState([]);
-  const fallbackBanner = "/image/bg.jpg";
+  const fallbackBanner = "/image/fallback.png";
 
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -73,15 +73,7 @@ const Trail = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <p className="text-xl text-white">Loading...</p>
-      </div>
-    );
-  }
-
-  if (testimonials.length === 0) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-xl text-white">No testimonials available.</p>
+        <p className="text-xl text-black">Loading........Testimonial</p>
       </div>
     );
   }
@@ -96,7 +88,7 @@ const Trail = () => {
           style={{ backgroundImage }}
         >
           {/* Testimonials Section */}
-          <div className="flex flex-col container py-5 items-center justify-center text-white mx-auto">
+          <div className="flex flex-col container py-5 items-center justify-center text-gray-300 mx-auto">
             {/* Section Title */}
             <h2 className="text-xl text-heading md:text-3xl font-bold tracking-wide mb-3">
               Our Testimonials
@@ -114,11 +106,11 @@ const Trail = () => {
                   zoomOut ? "zoom-out" : ""
                 }`}
               >
-                <div className="relative overflow-hidden cursor-pointer hover:rounded w-full h-[40vh] sm:h-[50vh] md:h-[70vh] max-w-full sm:max-w-[70vw] md:max-w-[40vw]">
+                <div className="relative overflow-hidden cursor-pointer hover:rounded w-full h-[0vh] sm:h-[50vh] md:h-[70vh] max-w-full sm:max-w-[70vw] md:max-w-[40vw]">
                   <Image
-                    src={currentItem?.path}
+                    src={currentItem?.path || fallbackBanner}
                     alt={currentItem?.alt}
-                    className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
+                    className="w-full h-full object-cotain rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
                     height={200}
                     width={200}
                   />

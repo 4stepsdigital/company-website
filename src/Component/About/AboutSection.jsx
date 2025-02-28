@@ -10,7 +10,7 @@ import {
 
 const AboutSection = () => {
   return (
-    <div className="    bg-background">
+    <div className="bg-background">
       <div className="container-wrapper py-10">
         <div className=" text-center mx-auto pb-3 ">
           <div className="">
@@ -54,7 +54,7 @@ const AboutSection = () => {
             {/* Image for mobile screens */}
             <div className="md:hidden flex justify-center mb-4">
               <Image
-                  src="/image/abouttt.png"
+                src="/image/abouttt.png"
                 alt="Tablet Mockup"
                 width={500}
                 height={500}

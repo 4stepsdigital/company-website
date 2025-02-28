@@ -1,20 +1,22 @@
 import { createContext, useContext, useEffect, useState } from "react";
 const Context = createContext(null);
 const fetchIndustries = async () => {
-  const response = await fetch("/api/industry/industry-hero", { method: "GET" })
+  const response = await fetch("/api/industry/industry-hero", {
+    method: "GET",
+  });
   const data = await response.json();
-return data;
+  return data;
 };
 const fetchTools = async () => {
   const response = await fetch("/api/global/tools/toolsoftware");
   const data = await response.json();
-   return data;
+  return data;
 };
 
 const fetchTopics = async () => {
-    const response = await fetch("/api/global/topic/gettopic");
-      const result = await response.json();
-      return result;   
+  const response = await fetch("/api/global/topic/gettopic");
+  const result = await response.json();
+  return result;
 };
 const fetchWebinarTypes = async () => {
   const res = await fetch("/api/webinar/webinartype/getwebinar");
@@ -27,29 +29,28 @@ const fetchDepartments = async () => {
   const data = await res.json();
   return data;
 };
-const fetchLanguage= async () => {
+const fetchLanguage = async () => {
   const res = await fetch("/api/global/language/getlanguages");
   const data = await res.json();
   return data;
 };
-const fetchService= async () => {
-  const res = await fetch("/api/service/serviceHero", { method: "GET" })
+const fetchService = async () => {
+  const res = await fetch("/api/service/serviceHero", { method: "GET" });
   const data = await res.json();
   return data;
 };
 
-
 const AppProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
 
-  const [topic,setTopic]=useState([]);
-  const [tool,setTool]=useState([]);
-  const [industries,setIndustries]=useState([]);
-  const [webinarType,setWebinarType]=useState([]);
-  const [department,setDepartment]=useState([]);
-  const [service,setService]=useState([]);
-  const [langauge,setLanguage]=useState([]);
-  const [data,setData]=useState([])
+  const [topic, setTopic] = useState([]);
+  const [tool, setTool] = useState([]);
+  const [industries, setIndustries] = useState([]);
+  const [webinarType, setWebinarType] = useState([]);
+  const [department, setDepartment] = useState([]);
+  const [service, setService] = useState([]);
+  const [langauge, setLanguage] = useState([]);
+  const [data, setData] = useState([]);
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await fetch("/api/user/user");
@@ -58,22 +59,43 @@ const AppProvider = ({ children }) => {
     };
 
     fetchUsers();
-    
-    fetchTopics().then(res=>{setTopic(res?.result||[])});
 
-    fetchTools().then(res=>{setTool(res?.data||[])});
+    fetchTopics().then((res) => {
+      setTopic(res?.result || []);
+    });
 
-    fetchIndustries().then(res=>{setIndustries(res?.data||[])});
-    fetchWebinarTypes().then(res=>{setWebinarType(res||[])});
-    fetchDepartments().then(res=>{setDepartment(res||[])});
-    fetchService().then(res=>{setService(res||[])});
-    fetchLanguage().then(res=>{setLanguage(res?.data||[])});
+    fetchTools().then((res) => {
+      setTool(res?.data || []);
+    });
 
+    fetchIndustries().then((res) => {
+      setIndustries(res?.data || []);
+    });
+    fetchWebinarTypes().then((res) => {
+      setWebinarType(res || []);
+    });
+    fetchDepartments().then((res) => {
+      setDepartment(res || []);
+    });
+    fetchService().then((res) => {
+      setService(res || []);
+    });
+    fetchLanguage().then((res) => {
+      setLanguage(res?.data || []);
+    });
   }, []);
 
-  const filterGlobalData={tool,industries,topic,webinarType,department,service,langauge};
+  const filterGlobalData = {
+    tool,
+    industries,
+    topic,
+    webinarType,
+    department,
+    service,
+    langauge,
+  };
 
-  const contextFun = { users, setUsers,filterGlobalData,data,setData };
+  const contextFun = { users, setUsers, filterGlobalData, data, setData };
 
   return <Context.Provider value={contextFun}>{children}</Context.Provider>;
 };

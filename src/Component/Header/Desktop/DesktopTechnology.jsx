@@ -1,162 +1,3 @@
-// import React, { useCallback, useEffect, useState } from "react";
-// import Link from "next/link";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faChevronRight } from "@fortawesome/free-solid-svg-icons"; // Importing FontAwesome icons
-// import Skeleton, { AnotherComponent } from "@/Component/Web/Skeleton";
-// import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-// const fetchAllSolutionType = async () => {
-//   const res = await fetch("/api/technology/masterT", { method: "GET" });
-//   return await res.json();
-// };
-
-// const fetchSolutionAccordingType = async (id) => {
-//   const res = await fetch(
-//     `/api/technology/get-technology?technologyType=${id}`
-//   );
-//   return await res.json();
-// };
-
-// const DesktopTechnology = ({ activeLink, handleLinkClick }) => {
-//   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-//   const [activeService, setActiveService] = useState(null);
-//   const [solutionType, setSolutionType] = useState([]);
-//   const [solutionList, setSolutionList] = useState([]);
-//   const [solutionId, setSolutionId] = useState(null);
-//   const [loading, setLoading] = useState(false); // New state for loading
-
-//   useEffect(() => {
-//     if (solutionId) {
-//       setLoading(true); // Start loading
-//       fetchSolutionAccordingType(solutionId)
-//         .then((data) => {
-//           setSolutionList(data?.data);
-//         })
-//         .catch((error) => {
-//           console.error("Error fetching solutions:", error);
-//         })
-//         .finally(() => {
-//           setLoading(false); // Stop loading
-//         });
-//     }
-//   }, [solutionId]);
-
-//   useEffect(() => {
-//     setLoading(true); // Start loading
-//     fetchAllSolutionType()
-//       .then((res) => {
-//         // console.log("Fetched Technology types-------->:", res.data);
-//         setSolutionType(res.data);
-//         if (res.data && res.data.length > 0) {
-//           setActiveService(res.data[0]);
-//           fetchSolutionAccordingType(res.data[0]?._id).then((data) => {
-//             setSolutionList(data?.data);
-//           });
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching solution types:", error);
-//       })
-//       .finally(() => {
-//         setLoading(false); // Stop loading
-//       });
-//   }, []);
-
-//   return (
-//     <>
-//       <div
-//         className="relative inline-block"
-//         onMouseEnter={() => setIsDropdownOpen(true)}
-//         onMouseLeave={() => setIsDropdownOpen(false)}
-//       >
-//         <div
-//           className={`relative inline-block text-base font-medium px-3 py-2 hover:text-orange-500`}
-//         >
-//           Technology
-//           <FontAwesomeIcon
-//             icon={isDropdownOpen ? faChevronUp : faChevronDown}
-//             className="ml-2 text-sm transition-transform duration-300"
-//           />
-//         </div>
-
-//         {/* Dropdown Menu */}
-//         {isDropdownOpen && (
-//           <div className="absolute right-[-17vw] w-[65vw] bg-background  border">
-//             <div className="flex max-w-7xl mx-auto">
-//               {/* Sidebar Menu */}
-//               <div className="w-1/4 border-r pt-2">
-//                 <h2 className="text-lg border-b py-2 pl-2 font-semibold">
-//                   Techology
-//                 </h2>
-
-//                 {solutionType?.map((solution) => (
-//                   <div
-//                     key={solution?._id}
-//                     className="py-3 text-md rounded font-normal px-4 cursor-pointer bg-white hover:bg-background flex justify-between transition-colors"
-//                     onMouseEnter={() => {
-//                       setActiveService(solution);
-//                       setSolutionId(solution?._id);
-//                     }}
-//                     onClick={() => {
-//                       setActiveService(solution);
-//                       setSolutionId(solution?._id);
-//                     }}
-//                   >
-//                     <span>{solution?.name}</span>
-
-//                     <FontAwesomeIcon
-//                       icon={faChevronRight}
-//                       className="text-sm"
-//                     />
-//                   </div>
-//                 ))}
-//               </div>
-
-//               {/* Content Area */}
-//               <div className="flex-1 pl-10 py-4">
-//                 <h2 className="text-xl font-semibold border-b transition duration-200">
-//                   {activeService
-//                     ? activeService.name
-//                     : "Select a solution type"}
-//                 </h2>
-
-//                 {/* Loading State */}
-//                 {loading ? (
-//                   <Skeleton />
-//                 ) : (
-//                   // Show loading message or spinner
-//                   <div className="">
-//                     {solutionList?.map((link) => {
-//                       return (
-//                         <Link
-//                           key={link?._id}
-//                           href={`/technology/${link?.title
-//                             ?.split(" ")
-//                             ?.join("-")}`}
-//                         >
-//                           <p className="text-gray-800 text-[15px] py-1 flex gap-1 items-center hover:text-orange-500 transition duration-200">
-//                             <FontAwesomeIcon
-//                               icon={faChevronRight}
-//                               className="text-[10px]"
-//                               size={10}
-//                             />
-//                             {link?.title}
-//                           </p>
-//                         </Link>
-//                       );
-//                     })}
-//                   </div>
-//                 )}
-//               </div>
-//             </div>
-//           </div>
-//         )}
-//       </div>
-//     </>
-//   );
-// };
-
-// export default DesktopTechnology;
-
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -195,22 +36,18 @@ const DesktopTechnology = ({ activeLink, handleLinkClick }) => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await getTechnologyData();
-      console.log("Fetched Technology Data:", res); // Log the entire response to the console
-
+      // console.log("Fetched Technology Data:", res);
       if (res && res.data) {
-        // Accessing res.data, as it's the correct property
-        // console.log("Solutions Data:", res.data); // Log the solutions data before setting it
-        setSolutionList(res.data); // Set the solutions data into state
+        setSolutionList(res.data);
       }
     };
 
     fetchData();
-  }, []); // Empty dependency array to run only once on mount
+  }, []);
 
-  // Log the solutionList data whenever it updates
   useEffect(() => {
     // console.log("Updated Solution List:", solutionList);
-  }, [solutionList]); // This will run every time solutionList updates
+  }, [solutionList]);
 
   return (
     <>
@@ -262,7 +99,11 @@ const DesktopTechnology = ({ activeLink, handleLinkClick }) => {
                   </li>
                 ))
               ) : (
-                <li>No solutions available</li> // If no data, show this
+                <div className="flex flex-col items-center gap-3 p-4 rounded-lg bg-gray-100 text-gray-700 shadow-md">
+                  <p className="text-lg font-medium">No Technology Available</p>
+                </div>
+
+                // If no data, show this
               )}
             </ul>
           </div>

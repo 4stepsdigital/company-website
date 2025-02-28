@@ -261,27 +261,30 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 
-const fetchAllSolutionType = async () => {
-  const res = await fetch("/api/solution/masterS", { method: "GET" });
-  return await res.json();
-};
-
 export const Footer = () => {
   const [industryNames, setIndustryNames] = useState([]);
-  const [solutionType, setSolutionType] = useState([]);
   const [error, SetError] = useState(null);
-  // console.log("solutionType--------------> ", solutionType);
+
+  const [data, setData] = useState([]);
+
   useEffect(() => {
-    const FetchData = async () => {
+    const fetchData = async () => {
       try {
-        const data = await fetchAllSolutionType();
-        setSolutionType(data);
-        // console.log("set alll the solution data", data);
-      } catch (error) {
-        SetError("Faild to fetch the data");
+        const response = await fetch("/api/solution/get-title");
+        if (!response.ok) {
+          console.error("Failed to fetch data");
+          return;
+        }
+        const result = await response.json();
+        // console.log("Fetched Data--------->:", result); // Logging the data
+        setData(result);
+        setData(result.slice(0, 6));
+      } catch (err) {
+        console.error("Error fetching data:", err);
       }
     };
-    FetchData();
+
+    fetchData();
   }, []);
 
   const fetchIndustries = async () => {
@@ -409,29 +412,6 @@ export const Footer = () => {
           <div>
             <div className="col-span-1">
               <h3 className="text-lg font-semibold mb-2">Industries</h3>
-              {/* <ul className="space-y-1 list-none text-sm">
-                <li>
-                  <Link href="#" className="hover:text-gray-300">
-                    Tour & Travel
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-gray-300">
-                    Banking
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-gray-300">
-                    System Design
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-gray-300">
-                    Marketing & Sales
-                  </Link>
-                </li>
-              </ul> */}
-
               <ul className="space-y-1 list-none text-sm">
                 {industryNames.length > 0 ? (
                   industryNames.map((name, index) => (
@@ -529,22 +509,17 @@ export const Footer = () => {
           <div>
             <div className="col-span-1">
               <h3 className="text-lg font-semibold mb-2">Solution</h3>
-              {error ? (
-                <p className="text-red-500">{error}</p>
-              ) : (
-                <ul className=" cursor-pointer space-y-1 list-none text-sm">
-                  {Array.isArray(solutionType?.data) &&
-                  solutionType?.data?.length > 0 ? (
-                    solutionType?.data?.map((solution, index) => (
-                      <li key={solution?._id} className="hover:text-gray-300">
-                        {solution?.name || `Solution ${index + 1}`}
-                      </li>
-                    ))
-                  ) : (
-                    <li>No solutions available</li>
-                  )}
-                </ul>
-              )}
+              <div className="cursor-pointer space-y-1 list-none text-sm">
+                {data?.map((item, index) => (
+                  <Link
+                    key={index}
+                    href={`/solution/${item?.title?.split(" ").join("-")}`}
+                    className="hover:text-gray-300"
+                  >
+                    <li>{item?.title}</li>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
 

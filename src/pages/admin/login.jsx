@@ -43,7 +43,7 @@ const LoginForm = () => {
       <div
         className="flex items-center justify-center min-h-screen bg-gray-100"
         style={{
-          backgroundImage: "url('/image/bg.jpg')",
+          backgroundImage: "url('/image/fbg.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -51,7 +51,7 @@ const LoginForm = () => {
         <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md">
           <div className="flex justify-center mb-4">
             <Image
-              src="/image/logo.png"
+              src="/image/logon.png"
               alt="WordPress Logo"
               className="w-32 h-24"
               height={200}

@@ -28,7 +28,6 @@ import Head from "next/head";
 
 const Contact = () => {
   const mapSrc = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.910862140821!2d77.51411137505966!3d28.48223097574713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ceb07a0270cf1%3A0xef3dde7c7ebbe43e!2sFour%20Steps%20Digital%20Consulting%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1723887840924!5m2!1sen!2sin`;
-
   return (
     <>
       <Head>
@@ -107,9 +106,9 @@ const Contact = () => {
               </div>
 
               {/* Image Section */}
-              <div className="flex justify-center md:justify-end items-center ">
+              <div className="flex justify-center md:justify-end  items-center ">
                 <Image
-                  src="/assets/web.png"
+                  src="/image/abouttt.png"
                   alt="About Us"
                   className="w-full max-w-sm md:max-w-md lg:max-w-lg rounded  object-cover"
                   height={500}
@@ -257,7 +256,7 @@ const Contact = () => {
                   />
 
                   <span className=" text-sm text-gray-500 hover:underline hover:text-blue-800">
-                    contact@scnsoft.com
+                    contact@4steps.com
                   </span>
                 </p>
                 <p className="mb-4 ">
@@ -271,16 +270,16 @@ const Contact = () => {
                 </p>
               </div>
 
-              <h3 className="text-base font-semibold md:mb-4 mb-2">
+              {/* <h3 className="text-base font-semibold md:mb-4 mb-2">
                 Join our team
-              </h3>
-              <p className="mb-4 cursor-pointer">
+              </h3> */}
+              {/* <p className="mb-4 cursor-pointer">
                 <FontAwesomeIcon icon={faFile} className="mr-1 text-blue-500" />
 
                 <span className=" text-sm text-gray-500 hover:underline hover:text-blue-800">
                   Upload your CV
                 </span>
-              </p>
+              </p> */}
               <h3 className="text-base font-semibold md:mb-4 mb-2">
                 Social media
               </h3>
@@ -407,70 +406,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-// {/* medium devices */}
-// <div className="md:block hidden">
-//   <div className="w-full md:h-[400px] xl:h-[500px] flex relative">
-//     <div className="w-[30%] h-full bg-black flex items-center justify-end"></div>
-//     <div className="relative w-[80%] h-full flex">
-//       <img
-//         src="/image/fbg.jpg"
-//         alt=""
-//         className="relative w-full h-full"
-//       />
-//       <div className="absolute w-full h-full bg-gradient-to-r from-black to-gray"></div>
-//     </div>
-//     <div className="w-full h-full absolute">
-//       <div className="w-[60%] h-full flex items-center justify-end px-16">
-//         <div className="w-full flex flex-col justify-center items-center">
-//           <h2 className="xl:text-[55px] md:text-[35px] text-[26px] leading-tight uppercase text-lg font-bold text-[#D45426] text-center">
-//             Contact us <br />{" "}
-//             <span className="text-white">We are here to help</span>
-//           </h2>
-//           <p className="my-5 md:text-base text-sm  text-white text-center">
-//             we are here to help! Whether you have a question about your
-//             booking, need assistance with your travel plans, or just want
-//             to know more about our services, feel free to get in touch
-//             with us.
-//           </p>
-//           <Link href="#">
-//             <button className="mt-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold md:py-2.5 py-1.5 md:px-4 px-3 rounded text-sm">
-//               Explore Now
-//             </button>
-//           </Link>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// </div>
-
-// {/* Small devices */}
-// <div className="md:hidden mt-20">
-//   <div className="w-full flex flex-col items-center bg-black p-5">
-//     <div className="text-center">
-//       <h2 className="text-[29px] font-bold uppercase text-[#D45426] leading-tight">
-//         Contact Us <br />
-//         <span className="text-white">We Are Here to Help</span>
-//       </h2>
-//       <p className="mt-4 text-sm text-white">
-//         We are here to help! Whether you have a question about your
-//         booking, need assistance with your travel plans, or just want to
-//         know more about our services, feel free to get in touch with us.
-//       </p>
-//     </div>
-//     <Link href="#">
-//       <button className="mt-5 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-2 px-4 rounded-md text-sm transition-transform transform hover:scale-105">
-//         Explore Now
-//       </button>
-//     </Link>
-//   </div>
-//   {/* <div className="relative w-full h-72">
-//     <img
-//       src="/image/fbg.jpg"
-//       alt="Background"
-//       className="absolute inset-0 w-full h-full object-cover"
-//     />
-//   </div> */}
-// </div>
-
-// {/* herosection end */}
