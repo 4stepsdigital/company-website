@@ -1,6 +1,5 @@
-// src/pages/_app.js
 import AppProvider from "@/Component/Context/context";
-import "../styles/globals.css"; // Import your global CSS file here
+import "../styles/globals.css"; 
 
 function MyApp({ Component, pageProps }) {
   return (
