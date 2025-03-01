@@ -265,7 +265,19 @@ export const Footer = () => {
   const [industryNames, setIndustryNames] = useState([]);
   const [error, SetError] = useState(null);
 
+  const [service, setService] = useState([]);
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchService = async () => {
+      const response = await fetch("/api/service/get-title");
+      const data = await response.json();
+      console.log("Fetched Data--------->:", data); // Logging the data
+
+      setService(data);
+    };
+    fetchService();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -470,39 +482,17 @@ export const Footer = () => {
           <div>
             <div className="col-span-1">
               <h3 className="text-lg font-semibold mb-2">Our Services </h3>
-              <ul className="space-y-1 list-none text-sm">
-                <li>
-                  <Link href="#" className="hover:text-gray-300">
-                    Software Development
+              <div className="cursor-pointer space-y-1 list-none text-sm">
+                {service?.map((item, index) => (
+                  <Link
+                    key={index}
+                    href={`/services/${item?.title?.split(" ").join("-")}`}
+                    className="hover:text-gray-300"
+                  >
+                    <li>{item?.title}</li>
                   </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-gray-300">
-                    Website Development
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-gray-300">
-                    IT Consulting
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-gray-300">
-                    Zoho Services
-                  </Link>
-                </li>
-
-                <li>
-                  <Link href="#" className="hover:text-gray-300">
-                    Hubspot Services
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-gray-300">
-                    Bitrix Service
-                  </Link>
-                </li>
-              </ul>
+                ))}
+              </div>
             </div>
           </div>
           {/* Solution */}
@@ -510,15 +500,19 @@ export const Footer = () => {
             <div className="col-span-1">
               <h3 className="text-lg font-semibold mb-2">Solution</h3>
               <div className="cursor-pointer space-y-1 list-none text-sm">
-                {data?.map((item, index) => (
-                  <Link
-                    key={index}
-                    href={`/solution/${item?.title?.split(" ").join("-")}`}
-                    className="hover:text-gray-300"
-                  >
-                    <li>{item?.title}</li>
-                  </Link>
-                ))}
+                {data && data.length > 0 ? (
+                  data.map((item, index) => (
+                    <Link
+                      key={index}
+                      href={`/solution/${item?.title?.split(" ").join("-")}`}
+                      className="hover:text-gray-300"
+                    >
+                      <li>{item?.title}</li>
+                    </Link>
+                  ))
+                ) : (
+                  <p>Solution not present</p>
+                )}
               </div>
             </div>
           </div>
@@ -564,7 +558,6 @@ export const Footer = () => {
             </div>
           </div>
         </div>
-
         <div className="mt-7 border-t  md:text-center md:text-sm text-xs justify-center border-gray-700 pt-6 ">
           <p className=" md:pl-0 pl-2">
             © {new Date().getFullYear()}

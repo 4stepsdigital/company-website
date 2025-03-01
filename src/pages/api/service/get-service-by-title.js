@@ -4,7 +4,7 @@ const apiRoute = async (req, res) => {
   await dbConnect();
   const { title } = req.query;
   if (!title) {
-    return res.status(300).json({ message: "Title is required !!!" });
+    return res.status(300).json({ message: "Title is required !!!!" });
   }
 
   try {
