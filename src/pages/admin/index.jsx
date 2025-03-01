@@ -631,7 +631,7 @@ const AdminDashboard = () => {
           </form>
 
           <div className=" max-h-[300px] overflow-y-auto p-3">
-            {toolsList.map((item, index) => (
+            {toolsList?.map((item, index) => (
               <div key={item._id} className="even:bg-slate-50 ">
                 <div className="flex justify-between px-1">
                   <p className="capitalize truncate flex gap-2 leading-8 text-[14px]">
