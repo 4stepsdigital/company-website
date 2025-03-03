@@ -2,38 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
-const ServiceFaq = ({faq}) => {
-  // Static FAQ data
-  const faqData = [
-    {
-      title: "What is the purpose of this service?",
-      information:
-        "This service aims to provide solutions for industry-specific challenges.",
-      answer:
-        "Our services are tailored to help businesses improve efficiency and productivity.",
-    },
-    {
-      title: "How do I get started?",
-      information:
-        "Getting started is easy with our step-by-step onboarding process.",
-      answer:
-        "Contact us, and we’ll guide you through the setup process tailored to your needs.",
-    },
-    {
-      title: "What industries do you cater to?",
-      information:
-        "We cater to a wide range of industries including healthcare, retail, and manufacturing.",
-      answer:
-        "Our solutions are flexible and designed to meet the needs of diverse industries.",
-    },
-    {
-      title: "Is there a support team available?",
-      information: "Yes, we offer 24/7 support for our clients.",
-      answer:
-        "Our dedicated support team ensures quick resolution of any issues you face.",
-    },
-  ];
-
+const ServiceFaq = ({ faq }) => {
   const [openIndices, setOpenIndices] = useState([]);
   const [isAllOpen, setIsAllOpen] = useState(false);
 
@@ -83,39 +52,48 @@ const ServiceFaq = ({faq}) => {
           </div>
 
           {/* FAQ Items */}
+
           <div className="w-full mx-auto md:px-0 px-5">
-            {faq?.map((faq, i) => (
-              <div key={i} className="mb-3">
-                <div
-                  onClick={() => handleToggle(i)}
-                  className="w-full md:h-14 h-16 flex justify-between items-center px-5 py-2 bg-white shadow-md rounded hover:bg-gray-200 cursor-pointer"
-                >
-                  <p className="md:text-[15px] text-[13px] capitalize md:font-semibold font-medium mr-1">
-                    {faq.title}
-                  </p>
-                  <span>
-                    {openIndices.includes(i) ? (
-                      <FontAwesomeIcon icon={faChevronUp} />
-                    ) : (
-                      <FontAwesomeIcon icon={faChevronDown} />
-                    )}
-                  </span>
-                </div>
-                <div
-                  className={`overflow-hidden transition-max-height duration-100 ease-in-out ${
-                    openIndices.includes(i) ? "max-h-[1000px]" : "max-h-0"
-                  }`}
-                  style={{
-                    maxHeight: openIndices.includes(i) ? "1000px" : "0px",
-                  }}
-                >
-                  <div className="py-4 xl:px-10 px-7 text-xs md:text-sm">
-                    <p dangerouslySetInnerHTML={{ __html: faq.information }} />
-                    {faq.answer}
+            {faq?.length > 0 ? (
+              faq.map((faq, i) => (
+                <div key={i} className="mb-3">
+                  <div
+                    onClick={() => handleToggle(i)}
+                    className="w-full md:h-14 h-16 flex justify-between items-center px-5 py-2 bg-white shadow-md rounded hover:bg-gray-200 cursor-pointer"
+                  >
+                    <p className="md:text-[15px] text-[13px] capitalize md:font-semibold font-medium mr-1">
+                      {faq?.title}
+                    </p>
+                    <span>
+                      {openIndices.includes(i) ? (
+                        <FontAwesomeIcon icon={faChevronUp} />
+                      ) : (
+                        <FontAwesomeIcon icon={faChevronDown} />
+                      )}
+                    </span>
+                  </div>
+                  <div
+                    className={`overflow-hidden transition-max-height duration-100 ease-in-out ${
+                      openIndices.includes(i) ? "max-h-[1000px]" : "max-h-0"
+                    }`}
+                    style={{
+                      maxHeight: openIndices.includes(i) ? "1000px" : "0px",
+                    }}
+                  >
+                    <div className="py-4 xl:px-10 px-7 text-xs md:text-sm">
+                      <p
+                        dangerouslySetInnerHTML={{ __html: faq?.information }}
+                      />
+                      {faq?.answer}
+                    </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="text-center py-5">
+                <p className="text-gray-800  text-xl">No FAQs available</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>

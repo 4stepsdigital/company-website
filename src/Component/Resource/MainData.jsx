@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { useAppContext } from "../Context/context";
 import Pagination from "react-js-pagination";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 //  for the webinar section api calling
 const fetchAllWebinar = async () => {
   return await (await fetch("/api/webinar/webinar", { method: "GET" })).json();

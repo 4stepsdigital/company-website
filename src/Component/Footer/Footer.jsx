@@ -272,9 +272,10 @@ export const Footer = () => {
     const fetchService = async () => {
       const response = await fetch("/api/service/get-title");
       const data = await response.json();
-      console.log("Fetched Data--------->:", data); // Logging the data
+      console.log("Fetched Data---------fetching>:", data); // Logging the data
 
-      setService(data);
+      // setService(data);
+      setService(Array.isArray(data) ? data : []); // Ensure it's an array
     };
     fetchService();
   }, []);
@@ -483,15 +484,19 @@ export const Footer = () => {
             <div className="col-span-1">
               <h3 className="text-lg font-semibold mb-2">Our Services </h3>
               <div className="cursor-pointer space-y-1 list-none text-sm">
-                {service?.map((item, index) => (
-                  <Link
-                    key={index}
-                    href={`/services/${item?.title?.split(" ").join("-")}`}
-                    className="hover:text-gray-300"
-                  >
-                    <li>{item?.title}</li>
-                  </Link>
-                ))}
+                {service && service.length > 0 ? (
+                  service?.map((item, index) => (
+                    <Link
+                      key={index}
+                      href={`/services/${item?.title?.split(" ").join("-")}`}
+                      className="hover:text-gray-300"
+                    >
+                      <li>{item?.title}</li>
+                    </Link>
+                  ))
+                ) : (
+                  <li>No services available...</li>
+                )}
               </div>
             </div>
           </div>
@@ -511,7 +516,7 @@ export const Footer = () => {
                     </Link>
                   ))
                 ) : (
-                  <p>Solution not present</p>
+                  <p> No Solution Available...</p>
                 )}
               </div>
             </div>

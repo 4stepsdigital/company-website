@@ -55,39 +55,45 @@ const SolutionFaq = ({ SolutionFaq }) => {
           </div>
           {/* FAQ Items */}
           <div className="w-full mx-auto md:px-0 px-5">
-            {faqData.map((item, i) => (
-              <div key={i} className="mb-3">
-                <div
-                  onClick={() => handleToggle(i)}
-                  className="w-full md:h-14 h-16 flex justify-between items-center px-5 py-2 bg-white shadow-md rounded hover:bg-gray-200 cursor-pointer"
-                >
-                  <p className="md:text-[15px] text-[13px] capitalize md:font-semibold font-medium mr-1">
-                    {item?.title}
-                  </p>
-                  <span>
-                    {openIndices.includes(i) ? (
-                      <FontAwesomeIcon icon={faChevronUp} />
-                    ) : (
-                      <FontAwesomeIcon icon={faChevronDown} />
-                    )}
-                  </span>
-                </div>
-                <div
-                  className={`overflow-hidden transition-max-height duration-100 ease-in-out ${
-                    openIndices.includes(i) ? "max-h-[1000px]" : "max-h-0"
-                  }`}
-                  style={{
-                    maxHeight: openIndices.includes(i) ? "1000px" : "0px",
-                  }}
-                >
-                  <div className="py-4 xl:px-10 px-7 text-xs md:text-sm">
-                    <p
-                      dangerouslySetInnerHTML={{ __html: item?.information }}
-                    />
+            {faqData.length > 0 ? (
+              faqData.map((item, i) => (
+                <div key={i} className="mb-3">
+                  <div
+                    onClick={() => handleToggle(i)}
+                    className="w-full md:h-14 h-16 flex justify-between items-center px-5 py-2 bg-white shadow-md rounded hover:bg-gray-200 cursor-pointer"
+                  >
+                    <p className="md:text-[15px] text-[13px] capitalize md:font-semibold font-medium mr-1">
+                      {item?.title}
+                    </p>
+                    <span>
+                      {openIndices.includes(i) ? (
+                        <FontAwesomeIcon icon={faChevronUp} />
+                      ) : (
+                        <FontAwesomeIcon icon={faChevronDown} />
+                      )}
+                    </span>
+                  </div>
+                  <div
+                    className={`overflow-hidden transition-max-height duration-100 ease-in-out ${
+                      openIndices.includes(i) ? "max-h-[1000px]" : "max-h-0"
+                    }`}
+                    style={{
+                      maxHeight: openIndices.includes(i) ? "1000px" : "0px",
+                    }}
+                  >
+                    <div className="py-4 xl:px-10 px-7 text-xs md:text-sm">
+                      <p
+                        dangerouslySetInnerHTML={{ __html: item?.information }}
+                      />
+                    </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="text-center  py-5">
+                <p className=" text-xl text-gray-800">No FAQs available</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
