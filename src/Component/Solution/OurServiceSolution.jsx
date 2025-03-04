@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const OurServiceSolution = ({ SolutionService }) => {
   // console.log(
-  //   " here is print the solution service section------>",
+  //   " here is print the solution service section------->",
   //   SolutionService
   // );
   return (
