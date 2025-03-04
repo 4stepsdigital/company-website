@@ -27,7 +27,7 @@ const IndustryWeServe = ({ service }) => {
                 <div className="flex justify-center items-center mb-6">
                   <div className="mb-4">
                     <Image
-                      src={item?.path || "/image/bg.jpg"} // Assuming the filename is a path to an image
+                      src={item?.path || "/image/fallback.png"} // Assuming the filename is a path to an image
                       alt={item?.imageAlt || "Service Image"}
                       className="w-full h-32 md:h-full md:w-48 object-cover rounded"
                       height={500}
