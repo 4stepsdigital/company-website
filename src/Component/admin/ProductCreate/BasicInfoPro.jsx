@@ -111,7 +111,7 @@ const BasicInfoPro = ({ setActiveTab, productData }) => {
       );
 
       const result = await response.json();
-      console.log("result is submitted data is here--> ", result);
+      console.log("result is submitted data is  here--> ", result);
       if (response.ok) {
         alert("Product created successfully!");
         router.push(`/admin/product/${result?.newProduct?._id}`);
