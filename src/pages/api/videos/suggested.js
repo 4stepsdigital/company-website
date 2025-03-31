@@ -1,5 +1,7 @@
 import Videos from "@/models/admin/videos/videomain";
+import dbConnect from "@/utils/db";
 const suggestedApi = async (req, res) => {
+   await dbConnect()
     const { industry, topics } = req.query;
     let pipeline = [];
 

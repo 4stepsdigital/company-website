@@ -1,7 +1,9 @@
 
 import ProductHighLights from "@/models/admin/product/Highlights";
 import Product from "@/models/admin/product/product";
+import dbConnect from "@/utils/db";
 const overviewApi = async (req, res) => {
+    await dbConnect()
     const { aboutEditorHtml, product } = req.body;
     // console.log("Request Method:", req.method);
 

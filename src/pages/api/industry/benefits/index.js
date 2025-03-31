@@ -1,7 +1,9 @@
 import Benefits from "@/models/admin/Industry/Benefits/Benefits";
 import Industry1 from "@/models/admin/Industry/Industry";
+import dbConnect from "@/utils/db";
 
 const benefitsApi = async (req, res) => {
+  await dbConnect()
     if (req.method === "POST") {
       const { heading, description, items, industry } = req.body;
 //   console.log("req.body--------------------> ",req.body)

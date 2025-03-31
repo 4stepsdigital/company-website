@@ -1,6 +1,8 @@
 import SolutionBenefits from "@/models/admin/solution/Benefits/Benefits";
 import SolutionHero from "@/models/admin/solution/solutionHero";
+import dbConnect from "@/utils/db";
 const benefitsApi = async (req, res) => {
+  await dbConnect()
     if (req.method === "POST") {
       const { heading, description, items, solution } = req.body;
 //   console.log("req.body--------------------> ",req.body)

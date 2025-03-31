@@ -1,9 +1,10 @@
 import VideoOverview from "@/models/admin/videos/Overview";
 import Videos from "@/models/admin/videos/videomain";
+import dbConnect from "@/utils/db";
 
 const overviewApi = async (req, res) => {
   const { aboutEditorHtml, video } = req.body;
-
+await dbConnect()
   // Log the incoming request method for debugging
   // console.log("Request Method:", req.method);
   if (req.method === "POST") {

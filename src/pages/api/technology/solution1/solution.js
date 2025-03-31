@@ -1,7 +1,9 @@
 import TechSolution from "@/models/admin/Tecnology/solution1/InSolution";
 import TechnologyHero from "@/models/admin/Tecnology/TechnologyHero";
+import dbConnect from "@/utils/db";
 
 const SolutionApi = async (req, res) => {
+  await dbConnect()
   const { technology } = req.query;
   try {
     const { heading,mainEditorHtmlDescription,solutionItem } = req.body;

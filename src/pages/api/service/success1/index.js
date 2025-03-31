@@ -3,7 +3,12 @@ import path from "path";
 import fs from "fs";
 import dbConnect from "@/utils/db";
 import SubServiceSuccess from "@/models/admin/ServicesModel/success/solutionsuccess";
-const uploadDirectory = "./public/uploads/service/servicesuccess";
+// const uploadDirectory = "./public/uploads/service/servicesuccess";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+const uploadDirectory = path.join(process.cwd(), "uploads/service/servicesuccess"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -48,7 +53,7 @@ const apiRoute = async (req, res) => {
         backgroundColor,
         keyword,
         service,
-        path: `/uploads/service/servicesuccess/${req.file.filename}`,
+        path: `/api/uploads/service/servicesuccess/${req.file.filename}`,
       };
 
       try {

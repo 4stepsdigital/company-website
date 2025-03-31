@@ -4,9 +4,11 @@ import fs from "fs";
 import dbConnect from "@/utils/db";
 import BlogDetail from "@/models/admin/blog copy/BlogDetail";
 
-const uploadDirectory = "./public/uploads/blogdetail";
+// const uploadDirectory = "./public/uploads/blogdetail";
 
-// Ensure the upload directory exists
+// Adjust path as per your project structure
+const uploadDirectory = path.join(process.cwd(), "uploads/blogdetail"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -61,7 +63,7 @@ const apiRoute = async (req, res) => {
         contentsummary,
         description,
         filename: req.file.filename,
-        videoPath: `/uploads/blogdetail/${req.file.filename}`,
+        videoPath: `/api/uploads/blogdetail/${req.file.filename}`,
       };
 
       try {

@@ -1,7 +1,9 @@
 import Why4StepSolution from "@/models/admin/solution/Why4StepS.js";
 import SolutionHero from "@/models/admin/solution/solutionHero";
+import dbConnect from "@/utils/db";
 
 const why4stepApi = async (req, res) => {
+  await dbConnect()
   try {
     const { heading, SelectedPartnersData, solution, overviewData } = req.body;
     const saveData = {

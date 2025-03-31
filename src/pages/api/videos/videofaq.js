@@ -1,7 +1,9 @@
 import VideoFaq from "@/models/admin/videos/Faq";
 import Videos from "@/models/admin/videos/videomain";
+import dbConnect from "@/utils/db";
 
 const blogquestionApi = async (req, res) => {
+  await dbConnect()
   if (req.method === "POST") {
     const {questions,video}=req.body; 
     try {

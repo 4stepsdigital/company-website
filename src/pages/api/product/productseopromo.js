@@ -1,9 +1,10 @@
 
 import ProductPromo from "@/models/admin/product/ProductPromo";
 import ProductSeoPromo from "@/models/admin/product/ProductSeoPromo";
+import dbConnect from "@/utils/db";
 
 const bogpromoApi=async (req,res)=>{
-   
+   await dbConnect()
    if(req.method==="POST"){ 
     const {title,canonicalUrl,description,keyword,promoId}=req.body;
     try {

@@ -1,6 +1,8 @@
 import CaseStudy from "@/models/admin/casestudy/casestudy";
+import dbConnect from "@/utils/db";
 
 const filterapi = async (req, res) => {
+    await dbConnect()
     const { industry, tools,topics,services } = req.query;
    
     let pipeline = [];

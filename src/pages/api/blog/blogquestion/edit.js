@@ -1,5 +1,7 @@
 import BlogQuestion from "@/models/admin/blog copy/BlogQuestion";
+import dbConnect from "@/utils/db";
 const blogquestionApi = async (req, res) => {
+  await dbConnect()
   const { quesId } = req.query;
   if (!quesId) {
     return res.status(300).json({ message: "quesId is required !!!!!" });

@@ -10,7 +10,13 @@ import VideoSeo from "@/models/admin/videos/Seo";
 
 //  for the uploading  directories exits
 
-const uploadDirectory = "./public/uploads/demovideo";
+// const uploadDirectory = "./public/uploads/demovideo";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/demovideo"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -27,6 +33,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 async function handler(req, res) {
+  await dbConnect()
   const { video } = req.query;
   if (req.method === "PUT") {
     upload.single("image")(req, {}, async (err) => {
@@ -92,7 +99,7 @@ async function handler(req, res) {
               videoLink,
               user,
               industry,
-              path: `/uploads/demovideo/${req.file.filename}`,
+              path: `/api/uploads/demovideo/${req.file.filename}`,
               filename: req.file.filename,
               altText,
               topics,

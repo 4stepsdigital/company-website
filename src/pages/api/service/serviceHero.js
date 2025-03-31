@@ -16,18 +16,36 @@ import ServiceFaq from "@/models/admin/ServicesModel/Faq/IndustryFaq";
 import ServiceBenefits from "@/models/admin/ServicesModel/Benefits/Benefits";
 import ServiceOverviewItem from "@/models/admin/ServicesModel/SolutionOverview/ServiceOverviewItem";
 import ServiceOverview from "@/models/admin/ServicesModel/SolutionOverview/ServiceOverview";
-const uploadDirectories = {
-  heroSection: "./public/uploads/service/serviceHero",
-  success: "./public/uploads/service/servicesuccess",
-  product: "./public/uploads/service/serviceProducts",
-  service: "./public/uploads/service/serviceServices",
-  solution: "./public/uploads/service/serviceSolution",
-  overview: "./public/uploads/service/serviceOvervies",
-};
-const uploadDirectory = "./public/uploads/service/serviceHero";
-if (!fs.existsSync(uploadDirectory))
-  fs.mkdirSync(uploadDirectory, { recursive: true });
 
+// const uploadDirectories = {
+//   heroSection: "./public/uploads/service/serviceHero",
+//   success: "./public/uploads/service/servicesuccess",
+//   product: "./public/uploads/service/serviceProducts",
+//   service: "./public/uploads/service/serviceServices",
+//   solution: "./public/uploads/service/serviceSolution",
+//   overview: "./public/uploads/service/serviceOvervies",
+// };
+// const uploadDirectory = "./public/uploads/service/serviceHero";
+// if (!fs.existsSync(uploadDirectory))
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+const uploadDirectories = {
+  heroSection: path.join(process.cwd(), "uploads/service/serviceHero"),
+  success: path.join(process.cwd(), "uploads/service/servicesuccess"),
+  product: path.join(process.cwd(), "uploads/service/serviceProducts"),
+  service: path.join(process.cwd(), "uploads/service/serviceServices"),
+  solution: path.join(process.cwd(), "uploads/service/serviceSolution"),
+  overview: path.join(process.cwd(), "uploads/service/serviceOvervies"),
+};
+Object.values(uploadDirectories).forEach((dir) => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+});
+const uploadDirectory = path.join(process.cwd(), "uploads/service/serviceHero"); // Define your upload directory
+// Ensure upload directory exists
+if (!fs.existsSync(uploadDirectory)) {
+  fs.mkdirSync(uploadDirectory, { recursive: true });
+}
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDirectory),
   filename: (req, file, cb) => cb(null, file.originalname),
@@ -44,7 +62,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: "Upload failed", details: err });
 
       const { title, serviceName, description, serviceType } = req.body;
-      const filePath = `/uploads/service/serviceHero/${req.file.filename}`;
+      const filePath = `/api/uploads/service/serviceHero/${req.file.filename}`;
       // console.log("req body data is here --> ", req.body);
       try {
         const service = await ServiceHero.create({

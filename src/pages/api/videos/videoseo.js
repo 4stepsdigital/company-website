@@ -1,7 +1,9 @@
 import VideoSeo from "@/models/admin/videos/Seo";
 import Videos from "@/models/admin/videos/videomain";
+import dbConnect from "@/utils/db";
 
 const blogdetailSeoApi = async (req, res) => {
+  await dbConnect()
   const { seoData, video } = req.body;
   const { tags, canonicalUrl, keyword } = seoData;
 

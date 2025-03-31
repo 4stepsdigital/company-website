@@ -1,6 +1,8 @@
 import MasterService from "@/models/admin/ServicesModel/MasterService";
+import dbConnect from "@/utils/db";
 
 const addDescriptionApiToMaster=async (req,res)=>{
+    await dbConnect()
     try {
         const {description,serviceId}=req.body;
         if(!serviceId){

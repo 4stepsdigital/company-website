@@ -1,7 +1,9 @@
 import CaseStudy from "@/models/admin/casestudy/casestudy";
 import CaseSeo from "@/models/admin/casestudy/Seo";
+import dbConnect from "@/utils/db";
 
 const blogdetailSeoApi = async (req, res) => {
+  await dbConnect()
   const { seoData, casestudy } = req.body;
   const { tags, canonicalUrl, keyword } = seoData;
 

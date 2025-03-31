@@ -1,6 +1,8 @@
 import ServiceBenefits from "@/models/admin/ServicesModel/Benefits/Benefits";
 import ServiceHero from "@/models/admin/ServicesModel/ServiceHero";
+import dbConnect from "@/utils/db";
 const benefitsApi = async (req, res) => {
+  await dbConnect()
   if (req.method === "POST") {
     const { heading, description, items, service } = req.body;
     //   console.log("req.body--------------------> ",req.body)

@@ -4,7 +4,13 @@ import fs from "fs";
 import dbConnect from "@/utils/db";
 import Success from "@/models/admin/Industry/Success";
 
-const uploadDirectory = "./public/uploads/industry/industrysuccess";
+// const uploadDirectory = "./public/uploads/industry/industrysuccess";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/industry/industrysuccess"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -61,7 +67,7 @@ const apiRoute = async (req, res) => {
 
           fileData = {
             filename: req.file.filename,
-            path: `/uploads/industry/industrysuccess/${req.file.filename}`,
+            path: `/api/uploads/industry/industrysuccess/${req.file.filename}`,
           };
         }
 

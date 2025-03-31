@@ -1,6 +1,4 @@
-// src/pages/api/admin/webinar/webinartype/postwebinar.js
 import dbConnect from "@/utils/db";
-
 import WebsiteWebinar from "@/models/admin/webinar/webinartypes";
 export default async function handler(req, res) {
   await dbConnect();

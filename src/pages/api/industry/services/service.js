@@ -1,6 +1,8 @@
 import Industry1 from "@/models/admin/Industry/Industry";
 import InService from "@/models/admin/Industry/Services/InSolution";
+import dbConnect from "@/utils/db";
 const SolutionApi = async (req, res) => {
+  await dbConnect()
   const { industry } = req.query;
   try {
     const { heading, mainEditorHtmlDescription, solutionItem } = req.body;

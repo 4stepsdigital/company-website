@@ -1,5 +1,7 @@
 import Product from "@/models/admin/product/product";
+import dbConnect from "@/utils/db";
 const suggestedApi = async (req, res) => {
+    await dbConnect()
     const { industry, service } = req.query;
     let pipeline = [];
 

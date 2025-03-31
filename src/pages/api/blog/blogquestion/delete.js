@@ -1,10 +1,16 @@
 import BlogQuestion from "@/models/admin/blog copy/BlogQuestion";
-const uploadDirectory = "./public/uploads/images";
+// const uploadDirectory = "./public/uploads/images";
 import path from "path";
 import fs from "fs";
 import SubQuestions from "@/models/admin/blog copy/SubQuestions";
-
+import dbConnect from "@/utils/db";
+const uploadDirectory = path.join(process.cwd(), "uploads/images"); // Define your upload directory
+// Ensure upload directory exists
+if (!fs.existsSync(uploadDirectory)) {
+  fs.mkdirSync(uploadDirectory, { recursive: true });
+}
 const blogquestionApi = async (req, res) => {
+  await dbConnect()
   const { quesId } = req.query;
 
   if (req.method === "DELETE") {

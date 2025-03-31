@@ -1,5 +1,7 @@
 import BlogQuestion from "@/models/admin/blog copy/BlogQuestion";
+import dbConnect from "@/utils/db";
 const blogquestionApi = async (req, res) => {
+  await dbConnect()
   const { blog } = req.query;
   try {
     const data1 = await BlogQuestion.find({ blog });

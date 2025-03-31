@@ -1,7 +1,9 @@
 import VideoHighLights from "@/models/admin/videos/HighLights";
 import Videos from "@/models/admin/videos/videomain";
+import dbConnect from "@/utils/db";
 
 const overviewApi = async (req, res) => {
+    await dbConnect()
     const { aboutEditorHtml, video} = req.body;
     // console.log("Request Method:", req.method);
 

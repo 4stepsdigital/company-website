@@ -3,7 +3,13 @@ import path from "path";
 import fs from "fs";
 import dbConnect from "@/utils/db";
 import ServiceHero from "@/models/admin/ServicesModel/ServiceHero";
-const uploadDirectory = "./public/uploads/service/serviceHero";
+// const uploadDirectory = "./public/uploads/service/serviceHero";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/service/serviceHero"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -38,7 +44,7 @@ const apiRoute = async (req, res) => {
         description,
         filename: req.file.filename,
         serviceType,
-        path: `/uploads/service/serviceHero/${req.file.filename}`,
+        path: `/api/uploads/service/serviceHero/${req.file.filename}`,
       };
 
       try {

@@ -10,9 +10,15 @@ import CaseSeo from "@/models/admin/casestudy/Seo";
 import CaseVisual from "@/models/admin/casestudy/Visuals";
 import ResultMatrix from "@/models/admin/casestudy/ResultMatrix";
 
-const uploadDirectory1 = "./public/uploads/casestudy/visuals";
-// Ensure the upload directory exists
-const uploadDirectory = "./public/uploads/casestudy";
+// const uploadDirectory1 = "./public/uploads/casestudy/visuals";
+// // Ensure the upload directory exists
+// const uploadDirectory = "./public/uploads/casestudy";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+const uploadDirectory1 = path.join(process.cwd(), "uploads/casestudy/visuals");
+const uploadDirectory = path.join(process.cwd(), "uploads/casestudy"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -87,7 +93,7 @@ async function handler(req, res) {
               service,
               topics,tools,
               industry,
-              path: `/uploads/casestudy/${req.file.filename}`,
+              path: `/api/uploads/casestudy/${req.file.filename}`,
               filename: req.file.filename,
               altText,
             },

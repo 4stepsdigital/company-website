@@ -4,10 +4,17 @@ import fs from 'fs';
 import dbConnect from '@/utils/db';
 import CaseStudyPromo from '@/models/admin/casestudy/CaseStudyPromo';
 // Set up the upload directory
-const uploadDirectory = './public/uploads/casestudypromo';
+// const uploadDirectory = './public/uploads/casestudypromo';
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/casestudypromo"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
+
 
 // Set up multer storage configuration
 const storage = multer.diskStorage({
@@ -47,7 +54,7 @@ const apiRoute = async (req, res) => {
         title,
         description,
         filename: req.file.filename,
-        videoPath: `/uploads/casestudypromo/${req.file.filename}`,
+        videoPath: `/api/uploads/casestudypromo/${req.file.filename}`,
       } : null;
 
       if (fileData) {

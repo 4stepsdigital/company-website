@@ -6,9 +6,15 @@ import dbConnect from "@/utils/db";
 import mongoose from "mongoose";
 import ServiceOverviewItem from "@/models/admin/ServicesModel/SolutionOverview/ServiceOverviewItem";
 
-const uploadDirectory = "./public/uploads/service/serviceOvervies";
+// const uploadDirectory = "./public/uploads/service/serviceOvervies";
 
-// Ensure the upload directory exists
+// // Ensure the upload directory exists
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/service/serviceOvervies"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -62,7 +68,7 @@ const apiRoute = async (req, res) => {
       }
 
       const newFileName = req.file?.filename || file.filename;
-      const newFilePath = req.file ? `/uploads/service/serviceOvervies/${req.file.filename}` : file?.path;
+      const newFilePath = req.file ? `/api/uploads/service/serviceOvervies/${req.file.filename}` : file?.path;
 
       // DELETE OLD IMAGE IF A NEW IMAGE IS UPLOADED
       if (req.file && file?.filename) {

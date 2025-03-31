@@ -1,7 +1,9 @@
 import ServiceFaq from "@/models/admin/ServicesModel/Faq/IndustryFaq";
 import ServiceHero from "@/models/admin/ServicesModel/ServiceHero";
+import dbConnect from "@/utils/db";
 
 const faqsApi = async (req, res) => {
+  await dbConnect()
   if (req.method === "POST") {
     const { faq, service } = req.body;
     if (!service) {

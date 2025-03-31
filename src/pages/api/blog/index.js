@@ -5,7 +5,13 @@ import dbConnect from "@/utils/db";
 import BlogPromoBanner from "@/models/admin/blog copy/BlogPromoBanner";
 
 // Set up the upload directory
-const uploadDirectory = "./public/uploads/blogpromo";
+// const uploadDirectory = "./public/uploads/blogpromo";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/blogpromo"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -48,7 +54,7 @@ const apiRoute = async (req, res) => {
             title,
             description,
             filename: req.file.filename,
-            videoPath: `/uploads/blogpromo/${req.file.filename}`,
+            videoPath: `/api/uploads/blogpromo/${req.file.filename}`,
           }
         : null;
 

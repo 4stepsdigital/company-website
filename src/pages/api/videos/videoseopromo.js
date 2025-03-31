@@ -1,9 +1,10 @@
 
 import VideoPromo from "@/models/admin/videos/VideoPromo";
 import VideoSeoPromo from "@/models/admin/videos/VideoSeoPromo";
+import dbConnect from "@/utils/db";
 
 const bogpromoApi=async (req,res)=>{
-   
+await dbConnect()
    if(req.method==="POST"){ 
     const {title,canonicalUrl,description,keyword,promoId}=req.body;
     try {

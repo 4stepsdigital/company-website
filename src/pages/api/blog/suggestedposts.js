@@ -1,6 +1,8 @@
 
 import BlogDetail from "@/models/admin/blog copy/BlogDetail";
+import dbConnect from "@/utils/db";
 const packagePublicSuggestedPackage = async (req, res) => {
+  await dbConnect()
   // console.log("req parasmdkjnkdjnkerbfhesbfs ejhbfehjbsd     ehfdbhejbfe  ejhrhf",req.params)
   try {
     const { packageId } = req.query;

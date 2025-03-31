@@ -1,8 +1,10 @@
 import TechSuccess from "@/models/admin/Tecnology/Success1/InSuccess";
 import TechnologyHero from "@/models/admin/Tecnology/TechnologyHero";
+import dbConnect from "@/utils/db";
 
 
 const successApi = async (req, res) => {
+  await dbConnect()
   const { technology } = req.query;
   try {
     const { heading,mainEditorHtmlDescription,successItem } = req.body;

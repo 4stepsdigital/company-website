@@ -1,9 +1,11 @@
 import SolutionProduct from "@/models/admin/solution/Product/InSolution";
 import SolutionHero from "@/models/admin/solution/solutionHero";
+import dbConnect from "@/utils/db";
 
 
 const SolutionApi = async (req, res) => {
   const { solution } = req.query;
+  await dbConnect()
   try {
     const { heading, mainEditorHtmlDescription, productItem } = req.body;
     const data = await SolutionProduct.findOne({ solution });

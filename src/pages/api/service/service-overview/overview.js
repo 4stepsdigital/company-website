@@ -1,8 +1,10 @@
 import ServiceHero from "@/models/admin/ServicesModel/ServiceHero";
 import ServiceOverview from "@/models/admin/ServicesModel/SolutionOverview/ServiceOverview";
+import dbConnect from "@/utils/db";
 
 
 const successApi = async (req, res) => {
+  await dbConnect()
   const { service } = req.query;
   try {
     const { heading,mainEditorHtmlDescription,overviewItem } = req.body;

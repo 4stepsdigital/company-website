@@ -1,6 +1,8 @@
 import ProductOverview from "@/models/admin/product/Overview";
 import Product from "@/models/admin/product/product";
+import dbConnect from "@/utils/db";
 const overviewApi = async (req, res) => {
+  await dbConnect()
   const { aboutEditorHtml, product } = req.body;
 
   // Log the incoming request method for debugging

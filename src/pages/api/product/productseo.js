@@ -1,7 +1,9 @@
 import Product from "@/models/admin/product/product";
 import ProductSeo from "@/models/admin/product/Seo";
+import dbConnect from "@/utils/db";
 
 const blogdetailSeoApi = async (req, res) => {
+  await dbConnect()
   const { seoData, product } = req.body;
   const { tags, canonicalUrl, keyword } = seoData;
 

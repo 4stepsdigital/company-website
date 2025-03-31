@@ -5,7 +5,13 @@ import multer from "multer";
 import Bloginfo from "@/models/admin/blog/basicinfo";
 
 // Ensure the upload directory exists
-const uploadDirectory = "./public/uploads/blogimage";
+// const uploadDirectory = "./public/uploads/blogimage";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/blogimage"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -54,7 +60,7 @@ async function handler(req, res) {
         title,
         subtitle,
         description,
-        path: `/uploads/blogimage/${req.file.filename}`,
+        path: `/api/uploads/blogimage/${req.file.filename}`,
         filename: req.file.filename,
         altText,
       });

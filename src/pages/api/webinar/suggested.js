@@ -1,6 +1,8 @@
 import Webinar from "@/models/admin/webinar/Webinar";
+import dbConnect from "@/utils/db";
 
 const suggestedApi = async (req, res) => {
+   await dbConnect()
     const { industry, department } = req.query;
     let pipeline = [];
 

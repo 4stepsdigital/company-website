@@ -5,10 +5,17 @@ import path from "path";
 import CaseStudy from "@/models/admin/casestudy/casestudy";
 
 // Ensure the upload directory exists
-const uploadDirectory = "./public/uploads/casestudy";
+// const uploadDirectory = "./public/uploads/casestudy";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/casestudy"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
+
 
 // Configure Multer
 const storage = multer.diskStorage({
@@ -61,7 +68,7 @@ async function handler(req, res) {
           service,
           topics,tools,
           industry,
-          path: `/uploads/casestudy/${req.file.filename}`,
+          path: `/api/uploads/casestudy/${req.file.filename}`,
           filename: req.file.filename,
           altText,
         });

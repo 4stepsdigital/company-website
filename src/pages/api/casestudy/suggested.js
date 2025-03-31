@@ -1,5 +1,7 @@
 import CaseStudy from "@/models/admin/casestudy/casestudy";
+import dbConnect from "@/utils/db";
 const suggestedApi = async (req, res) => {
+    await dbConnect()
     const { industry, service } = req.query;
     let pipeline = [];
 

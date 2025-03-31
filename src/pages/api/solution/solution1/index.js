@@ -3,11 +3,17 @@ import path from "path";
 import fs from "fs";
 import dbConnect from "@/utils/db";
 import SolutionSolutionItem from "@/models/admin/solution/solution/solutionItem";
-const uploadDirectory = "./public/uploads/solution/SolutionSolution";
+// const uploadDirectory = "./public/uploads/solution/SolutionSolution";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+
+const uploadDirectory = path.join(process.cwd(), "uploads/solution/SolutionSolution"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
-
 // Multer storage configuration
 const storage = multer.diskStorage({
   destination: uploadDirectory,
@@ -35,7 +41,7 @@ const apiRoute = async (req, res) => {
         title, link, editorHtmlDescription: editorHtmlDescriptionRaw, solution
       } = req.body;
 
-      console.log("solution solution Item ------> ",solution)
+      // console.log("solution solution Item ------> ",solution)
       let editorHtmlDescription;
       try {
         editorHtmlDescription = JSON.parse(editorHtmlDescriptionRaw);
@@ -49,7 +55,7 @@ const apiRoute = async (req, res) => {
         editorHtmlDescription,
         solution,
         filename: req.file?.filename || null,
-        path: req.file ? `/uploads/solution/SolutionSolution/${req.file.filename}` : null,
+        path: req.file ? `/api/uploads/solution/SolutionSolution/${req.file.filename}` : null,
       };
 
       try {

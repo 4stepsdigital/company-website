@@ -1,6 +1,8 @@
 import FaqWebinar from "@/models/admin/webinar/FaqWebinar";
 import Webinar from "@/models/admin/webinar/Webinar";
+import dbConnect from "@/utils/db";
 const blogquestionApi = async (req, res) => {
+  await dbConnect()
   if (req.method === "POST") {
     const {questions,webinar}=req.body;
     // console.log("req---------req.body---------------->   ",questions)

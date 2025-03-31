@@ -1,6 +1,8 @@
 import CaseStudy from "@/models/admin/casestudy/casestudy";
 import CaseFaq from "@/models/admin/casestudy/Faq";
+import dbConnect from "@/utils/db";
 const blogquestionApi = async (req, res) => {
+  await dbConnect()
   if (req.method === "POST") {
     const {questions,casestudy}=req.body; 
     try {

@@ -3,8 +3,11 @@
 //   res.json({ message: 'Admin API accessed successfully' });
 // });
 
+import dbConnect from "@/utils/db";
+
 // src/middlewares/verifyAdmin.js
 export const verifyAdmin = (handler) => async (req, res) => {
+ await dbConnect()
   if (!req.user || req.user.role !== "admin") {
     return res.status(403).json({ message: "Access denied" });
   }

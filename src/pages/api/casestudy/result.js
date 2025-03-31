@@ -1,10 +1,12 @@
 import CaseStudy from "@/models/admin/casestudy/casestudy";
 import ResultMatrix from "@/models/admin/casestudy/ResultMatrix";
+import dbConnect from "@/utils/db";
 
 
 const overviewApi = async (req, res) => {
     const { aboutEditorHtml, casestudy } = req.body;
     // console.log("Request Method:", req.method);
+    await dbConnect()
 
     if (req.method === "POST") {
         try {

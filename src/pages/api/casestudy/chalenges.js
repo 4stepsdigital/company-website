@@ -1,8 +1,10 @@
 import CaseStudy from "@/models/admin/casestudy/casestudy";
 import CaseChalenge from "@/models/admin/casestudy/Chalenges";
+import dbConnect from "@/utils/db";
 
 
 const overviewApi = async (req, res) => {
+    await dbConnect()
     const { aboutEditorHtml, casestudy } = req.body;
     // console.log("Request Method:", req.method);
 

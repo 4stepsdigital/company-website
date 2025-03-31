@@ -4,10 +4,16 @@ import fs from "fs";
 import path from "path";
 import Videos from "@/models/admin/videos/videomain";
 //  for the uploading  directories exits
-const uploadDirectory = "./public/uploads/demovideo";
+// const uploadDirectory = "./public/uploads/demovideo";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+const uploadDirectory = path.join(process.cwd(), "uploads/demovideo"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
+
 // Configure Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -67,7 +73,7 @@ async function handler(req, res) {
           videoLink,
           user,
           industry,
-          path: `/uploads/demovideo/${req.file.filename}`,
+          path: `/api/uploads/demovideo/${req.file.filename}`,
           filename: req.file.filename,
           altText,
           topics,

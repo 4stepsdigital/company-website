@@ -1,6 +1,8 @@
 import ProductFaq from "@/models/admin/product/Faq";
 import Product from "@/models/admin/product/product";
+import dbConnect from "@/utils/db";
 const blogquestionApi = async (req, res) => {
+  await dbConnect()
   if (req.method === "POST") {
     const {questions,product}=req.body; 
     try {

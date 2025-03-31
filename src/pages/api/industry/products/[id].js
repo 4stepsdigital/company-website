@@ -6,7 +6,13 @@ import SubIndustryProduct from "@/models/admin/Industry/Product/IndustrySolution
 
 
 // Define upload directory
-const uploadDirectory = "./public/uploads/industry/industryProducts";
+// const uploadDirectory = "./public/uploads/industry/industryProducts";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/industry/industryProducts"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -59,7 +65,7 @@ const apiRoute = async (req, res) => {
         editorHtmlDescription,
         industry,
         filename: req.file?.filename || null,
-        path: req.file ? `/uploads/industry/industryProducts/${req.file.filename}` : file?.path,
+        path: req.file ? `/api/uploads/industry/industryProducts/${req.file.filename}` : file?.path,
       };
 
     

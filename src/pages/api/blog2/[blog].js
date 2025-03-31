@@ -1,6 +1,8 @@
 import Bloginfo from "@/models/admin/blog/basicinfo";
+import dbConnect from "@/utils/db";
 
 async function handler(req, res) {
+  await dbConnect()
   const { blog } = req.query;
   if (req.method === "PUT") {
   } else if (req.method === "DELETE") {

@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
@@ -7,8 +6,11 @@ import BlogDetail from "@/models/admin/blog copy/BlogDetail";
 import BlogSeoDetail from "@/models/admin/blog copy/BlogSeoDetail";
 import BlogQuestion from "@/models/admin/blog copy/BlogQuestion";
 import SubQuestions from "@/models/admin/blog copy/SubQuestions";
-const uploadDirectory = "./public/uploads/blogdetail";
-const uploadDirectory1 = "./public/uploads/images";
+// const uploadDirectory = "./public/uploads/blogdetail";
+// const uploadDirectory1 = "./public/uploads/images";
+// Ensure upload directory exists
+const uploadDirectory1 = path.join(process.cwd(), "uploads/images");
+const uploadDirectory = path.join(process.cwd(), "uploads/blogdetail"); // Define your upload directory
 // Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
@@ -61,7 +63,7 @@ const apiRoute = async (req, res) => {
         selectTools,
         description,
         filename: req.file.filename,
-        videoPath: `/uploads/blogdetail/${req.file.filename}`,
+        videoPath: `/api/uploads/blogdetail/${req.file.filename}`,
       };
 
       try {

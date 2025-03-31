@@ -1,7 +1,9 @@
 import TechFaq from "@/models/admin/Tecnology/Faq/IndustryFaq";
 import TechnologyHero from "@/models/admin/Tecnology/TechnologyHero";
+import dbConnect from "@/utils/db";
 
 const faqsApi = async (req, res) => {
+  await dbConnect()
     if (req.method === "POST") {
       const { faq ,technology } = req.body;
       if (!technology) {

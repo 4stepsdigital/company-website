@@ -4,7 +4,13 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import { parse } from 'cookie';
-const uploadsDir = "./public/uploads/UserImages";
+// const uploadsDir = "./public/uploads/UserImages";
+// if (!fs.existsSync(uploadsDir)) {
+//   fs.mkdirSync(uploadsDir, { recursive: true });
+// }
+
+const uploadsDir = path.join(process.cwd(), "uploads/UserImages"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
@@ -51,7 +57,7 @@ const userHandler = async (req, res) => {
         jobProfile,
         image: {
           filename: req.file.filename,
-          path: `/uploads/UserImages/${req.file.filename}`,
+          path: `/api/uploads/UserImages/${req.file.filename}`,
         },
         alt,
       });

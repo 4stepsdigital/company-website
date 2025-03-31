@@ -5,7 +5,14 @@ import path from "path";
 import fs from "fs";
 
 // Set up storage configuration for multer
-const uploadDirectory = "./public/uploads/Testimonial";
+// const uploadDirectory = "./public/uploads/Testimonial";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+
+const uploadDirectory = path.join(process.cwd(), "uploads/Testimonial"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -61,7 +68,7 @@ export default async function handler(req, res) {
         if (req.file) {
           const filename = req.file.filename;
           updateData.filename = filename;
-          updateData.path = `/uploads/Testimonial/${filename}`; // Update the image path
+          updateData.path = `/api/uploads/Testimonial/${filename}`; // Update the image path
         }
         const files1 = await Testimonial.findOne({ _id: id });
         let file;

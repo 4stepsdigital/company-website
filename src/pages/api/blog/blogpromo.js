@@ -1,7 +1,9 @@
 import BlogPromo from "@/models/admin/blog copy/BlogPromo";
 import BlogPromoBanner from "@/models/admin/blog copy/BlogPromoBanner";
+import dbConnect from "@/utils/db";
 
 const bogpromoApi = async (req, res) => {
+  await dbConnect()
   if (req.method === "POST") {
     const { title, canonicalUrl, description, keyword, promoId } = req.body;
     try {

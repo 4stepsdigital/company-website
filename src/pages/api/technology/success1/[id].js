@@ -5,11 +5,17 @@ import dbConnect from "@/utils/db";
 import SuccessSubItem from "@/models/admin/Tecnology/Success1/Success";
 
 
-const uploadDirectory = "./public/uploads/tecnology/tecnologysuccess";
+// const uploadDirectory = "./public/uploads/tecnology/tecnologysuccess";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+
+const uploadDirectory = path.join(process.cwd(), "uploads/technology/tecnologysuccess"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
-
 // Multer storage configuration
 const storage = multer.diskStorage({
   destination: uploadDirectory,
@@ -62,7 +68,7 @@ const apiRoute = async (req, res) => {
 
           fileData = {
             filename: req.file.filename,
-            path: `/uploads/tecnology/tecnologysuccess/${req.file.filename}`,
+            path: `/api/uploads/tecnology/tecnologysuccess/${req.file.filename}`,
           };
         }
 

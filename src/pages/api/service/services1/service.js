@@ -1,7 +1,9 @@
 import ServiceHero from "@/models/admin/ServicesModel/ServiceHero";
 import ServiceService from "@/models/admin/ServicesModel/Services/InSolution";
+import dbConnect from "@/utils/db";
 
 const SolutionApi = async (req, res) => {
+  await dbConnect()
   const { service } = req.query;
   // console.log("this is service page-----> ",service)
   try {

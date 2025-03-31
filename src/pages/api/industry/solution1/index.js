@@ -5,7 +5,13 @@ import dbConnect from "@/utils/db";
 import SubIndustrySolution from "@/models/admin/Industry/IndustrySolution";
 
 // Define upload directory
-const uploadDirectory = "./public/uploads/industry/industrysolution";
+// const uploadDirectory = "./public/uploads/industry/industrysolution";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/industry/industrysolution"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -33,7 +39,7 @@ const apiRoute = async (req, res) => {
       }
 
       const { title, link, editorHtmlDescription: editorHtmlDescriptionRaw, industry } = req.body;
-      console.log("req------body----------------> ",req.body)
+      // console.log("req------body----------------> ",req.body)
       // Validate required fields
       if (!title || !industry) {
         return res.status(400).json({ error: "Missing required fields" });
@@ -54,7 +60,7 @@ const apiRoute = async (req, res) => {
         editorHtmlDescription,
         industry,
         filename: req.file?.filename || null,
-        path: req.file ? `/uploads/industry/industrysolution/${req.file.filename}` : null,
+        path: req.file ? `/api/uploads/industry/industrysolution/${req.file.filename}` : null,
       };
       
 

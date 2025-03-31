@@ -3,7 +3,13 @@ import path from "path";
 import fs from "fs";
 import dbConnect from "@/utils/db";
 import Teammember from "@/models/admin/Teammember";
-const uploadDirectory = "./public/uploads/TeamImages";
+// const uploadDirectory = "./public/uploads/TeamImages";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/TeamImages"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -46,7 +52,7 @@ const apiRoute = async (req, res) => {
         link2,
         altText,
         filename: req.file.filename,
-        path: `/uploads/TeamImages/${req.file.filename}`,
+        path: `/api/uploads/TeamImages/${req.file.filename}`,
       };
       try {
         const files1 = await Teammember.findOne({ _id: id });

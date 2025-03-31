@@ -4,7 +4,13 @@ import fs from 'fs';
 import dbConnect from '@/utils/db'; // Adjust path as per your project structure
 import Partner from '@/models/admin/Industry/Partner';
  // Adjust path as per your project structure
-const uploadDirectory = './public/uploads/industry/partner'; // Define your upload directory
+// const uploadDirectory = './public/uploads/industry/partner'; // Define your upload directory
+// // Ensure upload directory exists
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/industry/partner"); // Define your upload directory
 // Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
@@ -39,7 +45,7 @@ const apiRoute = async (req, res) => {
         title,
         alt,
         filename: req.file.filename,
-        path: `/uploads/industry/partner/${req.file.filename}`,
+        path: `/api/uploads/industry/partner/${req.file.filename}`,
       } : {
         title,
         alt,

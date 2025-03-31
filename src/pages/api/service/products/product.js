@@ -1,7 +1,9 @@
 import ServiceProduct from "@/models/admin/ServicesModel/Product/InSolution";
 import ServiceHero from "@/models/admin/ServicesModel/ServiceHero";
+import dbConnect from "@/utils/db";
 
 const SolutionApi = async (req, res) => {
+  await dbConnect()
   const { service } = req.query;
   try {
     const { heading, mainEditorHtmlDescription, productItem } = req.body;

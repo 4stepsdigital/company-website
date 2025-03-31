@@ -1,7 +1,9 @@
 import IndustryFaq from "@/models/admin/Industry/Faq/IndustryFaq";
 import Industry1 from "@/models/admin/Industry/Industry";
+import dbConnect from "@/utils/db";
 
 const faqsApi = async (req, res) => {
+  await dbConnect()
     if (req.method === "POST") {
       const { faq ,industry } = req.body;
       if (!industry) {

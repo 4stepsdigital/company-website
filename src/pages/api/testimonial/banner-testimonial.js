@@ -4,7 +4,13 @@ import fs from "fs";
 import TestimonialBanner from "@/models/admin/Testimonial/testimonialbanner";
 
 // Set up storage configuration for multer
-const uploadDirectory = "./public/uploads/Testimonialbanner";
+// const uploadDirectory = "./public/uploads/Testimonialbanner";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/Testimonialbanner"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -19,6 +25,13 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+
+//delete file
+const deleteFile = (filePath) => {
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
+};
 
 export const config = {
   api: {
@@ -51,7 +64,7 @@ export default async function handler(req, res) {
         const filename = req.file.filename;
 
         const newTestimonial = new TestimonialBanner({
-          path: `/uploads/Testimonialbanner/${filename}`,
+          path: `/api/uploads/Testimonialbanner/${filename}`,
           filename,
           alt,
         });
@@ -85,10 +98,8 @@ export default async function handler(req, res) {
       }
 
       // Delete the image file from the file system
-      const filePath = `./public${testimonial.path}`;
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath); // Remove the image file
-      }
+      const oldImagePath = path.join(uploadDirectory, existingTestimonial.filename);
+      deleteFile(oldImagePath);
 
       // Remove testimonial from the database
       await TestimonialBanner.findByIdAndDelete(id);

@@ -1,6 +1,8 @@
 import Industry1 from "@/models/admin/Industry/Industry";
 import Why4Steps from "@/models/admin/Industry/Why4Steps";
+import dbConnect from "@/utils/db";
 const why4stepApi = async (req, res) => {
+  await dbConnect()
   try {
     const { heading, SelectedPartnersData, industry, overviewData } = req.body;
     const saveData = {

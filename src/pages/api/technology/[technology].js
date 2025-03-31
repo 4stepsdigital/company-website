@@ -3,9 +3,15 @@ import path from "path";
 import fs from "fs";
 import dbConnect from "@/utils/db";
 import TechnologyHero from "@/models/admin/Tecnology/TechnologyHero";
-const uploadDirectory = "./public/uploads/technology/herosection";
+// const uploadDirectory = "./public/uploads/technology/herosection";
 
-// Ensure the upload directory exists
+// // Ensure the upload directory exists
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/technology/herosection"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -46,7 +52,7 @@ const apiRoute = async (req, res) => {
         description,
         technologyType,
         filename: req.file.filename,
-        path: `/uploads/technology/herosection/${req.file.filename}`,
+        path: `/api/uploads/technology/herosection/${req.file.filename}`,
       };
 
       try {

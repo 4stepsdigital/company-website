@@ -1,8 +1,15 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-import connectToDatabase from '@/utils/db';
-const uploadDirectory = './public/uploads/images';
+import dbConnect from '@/utils/db';
+// import connectToDatabase from '@/utils/db';
+// const uploadDirectory = './public/uploads/images';
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/images"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -18,7 +25,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage }).single('file');
 
 export default function handler(req, res) {
-  connectToDatabase().then(res=>console.log("database connected"));
+  dbConnect().then(res=>console.log("database connected"));
   
   if (req.method === 'POST') {
     try {
@@ -26,7 +33,7 @@ export default function handler(req, res) {
         if (err) {
           return res.status(500).json({ error: 'Image upload failed' });
         }
-        const imageUrl = `/uploads/images/${req.file?.filename}`;
+        const imageUrl = `/api/uploads/images/${req.file?.filename}`;
         return res.status(200).json({ url: imageUrl });
       });
     } catch (error) {

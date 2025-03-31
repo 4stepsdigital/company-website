@@ -1,5 +1,7 @@
 import BlogDetail from "@/models/admin/blog copy/BlogDetail";
+import dbConnect from "@/utils/db";
 const suggestedApi = async (req, res) => {
+  await dbConnect()
   const { industry, topics } = req.query;
   let pipeline = [];
 

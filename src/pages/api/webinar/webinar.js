@@ -6,7 +6,13 @@ import fs from "fs";
 import Webinar from "@/models/admin/webinar/Webinar";
 
 // Set up storage configuration for multer
-const uploadDirectory = "./public/uploads/webinar";
+// const uploadDirectory = "./public/uploads/webinar";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/webinar"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -75,7 +81,7 @@ export default async function handler(req, res) {
             industry,
             language,
           filename,
-          path: `/uploads/webinar/${filename}`, // Save the image filename
+          path: `/api/uploads/webinar/${filename}`, // Save the image filename
         });
 
         // Save the testimonial to the database

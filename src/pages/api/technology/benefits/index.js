@@ -1,7 +1,9 @@
 import TechBenefits from "@/models/admin/Tecnology/Benefits/Benefits";
 import TechnologyHero from "@/models/admin/Tecnology/TechnologyHero";
+import dbConnect from "@/utils/db";
 
 const benefitsApi = async (req, res) => {
+  await dbConnect()
     if (req.method === "POST") {
       const { heading, description, items, technology } = req.body;
 //   console.log("req.body--------------------> ",req.body)

@@ -6,7 +6,13 @@ import SubIndustryServices from "@/models/admin/Industry/Services/IndustrySoluti
 
 
 // Define upload directory
-const uploadDirectory = "./public/uploads/industry/industryServices";
+// const uploadDirectory = "./public/uploads/industry/industryServices";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/industry/industryServices"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -59,7 +65,7 @@ const apiRoute = async (req, res) => {
         subTitle,
         industry,
         filename: req.file?.filename || null,
-        path: req.file ? `/uploads/industry/industryServices/${req.file.filename}` : file?.path,
+        path: req.file ? `/api/uploads/industry/industryServices/${req.file.filename}` : file?.path,
       };
         if(req.file){
             const filePath = path.join(uploadDirectory, file.filename);

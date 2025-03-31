@@ -5,9 +5,15 @@ import dbConnect from "@/utils/db";
 import mongoose from "mongoose";
 import TechnologyOverviewItem from "@/models/admin/Tecnology/TechnologyOverview/TechnologyOverviewItem";
 
-const uploadDirectory = "./public/uploads/technology/TechnologyOverview";
+// const uploadDirectory = "./public/uploads/technology/TechnologyOverview";
 
-// Ensure the upload directory exists
+// // Ensure the upload directory exists
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/technology/TechnologyOverview"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -61,7 +67,7 @@ const apiRoute = async (req, res) => {
       }
 
       const newFileName = req.file?.filename || file.filename;
-      const newFilePath = req.file ? `/uploads/technology/TechnologyOverview/${req.file.filename}` : file?.path;
+      const newFilePath = req.file ? `/api/uploads/technology/TechnologyOverview/${req.file.filename}` : file?.path;
 
       // DELETE OLD IMAGE IF A NEW IMAGE IS UPLOADED
       if (req.file && file?.filename) {

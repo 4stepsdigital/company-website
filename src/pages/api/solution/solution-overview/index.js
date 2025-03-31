@@ -3,7 +3,13 @@ import path from "path";
 import fs from "fs";
 import dbConnect from "@/utils/db";
 import SolutionOverviewItem from "@/models/admin/solution/SolutionOverview/SolutionOverviewItem";
-const uploadDirectory = "./public/uploads/solution/SolutionOverview";
+// const uploadDirectory = "./public/uploads/solution/SolutionOverview";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/solution/SolutionOverview"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -48,7 +54,7 @@ const apiRoute = async (req, res) => {
         editorHtmlDescription,
         solution,
         filename: req.file?.filename || null,
-        path: req.file ? `/uploads/solution/SolutionOverview/${req.file.filename}` : null,
+        path: req.file ? `/api/uploads/solution/SolutionOverview/${req.file.filename}` : null,
       };
 
       try {

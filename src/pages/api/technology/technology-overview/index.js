@@ -3,11 +3,17 @@ import path from "path";
 import fs from "fs";
 import dbConnect from "@/utils/db";
 import TechnologyOverviewItem from "@/models/admin/Tecnology/TechnologyOverview/TechnologyOverviewItem";
-const uploadDirectory = "./public/uploads/technology/TechnologyOverview";
+// const uploadDirectory = "./public/uploads/technology/TechnologyOverview";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+
+const uploadDirectory = path.join(process.cwd(), "uploads/technology/TechnologyOverview"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
-
 // Multer storage configuration
 const storage = multer.diskStorage({
   destination: uploadDirectory,
@@ -48,7 +54,7 @@ const apiRoute = async (req, res) => {
         editorHtmlDescription,
         technology,
         filename: req.file?.filename || null,
-        path: req.file ? `/uploads/technology/TechnologyOverview/${req.file.filename}` : null,
+        path: req.file ? `/api/uploads/technology/TechnologyOverview/${req.file.filename}` : null,
       };
 
       try {

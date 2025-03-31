@@ -4,7 +4,13 @@ import path from "path";
 import fs from "fs";
 import VideoUser from "@/models/admin/videos/videouser";
 // Create the uploads directory if it doesn't exist
-const uploadsDir = "./public/uploads/VideoUserImages"; // Updated directory name
+// const uploadsDir = "./public/uploads/VideoUserImages"; // Updated directory name
+// if (!fs.existsSync(uploadsDir)) {
+//   fs.mkdirSync(uploadsDir, { recursive: true });
+// }
+
+const uploadsDir = path.join(process.cwd(), "uploads/VideoUserImages"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
@@ -51,7 +57,7 @@ const userHandler = async (req, res) => {
         jobProfile,
         image: {
           filename: req.file.filename,
-          path: `/uploads/VideoUserImages/${req.file.filename}`, // Updated path
+          path: `/api/uploads/VideoUserImages/${req.file.filename}`, // Updated path
         },
         alt,
       });
@@ -112,7 +118,7 @@ const userHandler = async (req, res) => {
             jobProfile,
             image: {
               filename: req.file.filename,
-              path: `/uploads/VideoUserImages/${req.file.filename}`, // Updated path
+              path: `/api/uploads/VideoUserImages/${req.file.filename}`, // Updated path
             },
             alt,
           },

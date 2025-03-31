@@ -4,10 +4,17 @@ import path from 'path';
 import fs from 'fs';
 import Teammember from '@/models/admin/Teammember';
 import dbConnect from '@/utils/db';
-const uploadDirectory = './public/uploads/TeamImages';
+// const uploadDirectory = './public/uploads/TeamImages';
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/TeamImages"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
+
 const storage = multer.diskStorage({
   destination: uploadDirectory,
   filename: (req, file, cb) => {
@@ -39,9 +46,9 @@ await dbConnect()
         link2,
         altText,
         filename:req.file.filename,
-        path: `/uploads/TeamImages/${req.file.filename}`,
+        path: `/api/uploads/TeamImages/${req.file.filename}`,
       }
-      console.log("fileData------------------------------------> ",fileData)
+      // console.log("fileData------------------------------------> ",fileData)
       try {   
           const file =await Teammember.create(fileData);
           return res.status(200).json({ data: file });

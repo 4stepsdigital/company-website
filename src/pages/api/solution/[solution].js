@@ -4,9 +4,15 @@ import fs from "fs";
 import dbConnect from "@/utils/db";
 import SolutionHero from "@/models/admin/solution/solutionHero";
 
-const uploadDirectory = "./public/uploads/solution/solutionHero";
+// const uploadDirectory = "./public/uploads/solution/solutionHero";
 
-// Ensure the upload directory exists
+// // Ensure the upload directory exists
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/solution/solutionHero"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -47,7 +53,7 @@ const apiRoute = async (req, res) => {
         description,
         filename: req.file.filename,
         solutionType,
-        path: `/uploads/solution/solutionHero/${req.file.filename}`,
+        path: `/api/uploads/solution/solutionHero/${req.file.filename}`,
       };
 
       try {

@@ -4,8 +4,10 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 
-// Set up storage configuration for multer
-const uploadDirectory = "./public/uploads/Testimonial";
+// Define upload directory
+const uploadDirectory = path.join(process.cwd(), "uploads/Testimonial");
+
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -15,7 +17,7 @@ const storage = multer.diskStorage({
     cb(null, uploadDirectory);
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname); // Save the original file name
+    cb(null, file.originalname);
   },
 });
 
@@ -23,38 +25,38 @@ const upload = multer({ storage });
 
 export const config = {
   api: {
-    bodyParser: false, // Disable default body parsing
+    bodyParser: false,
   },
 };
 
-// Use multer middleware to handle file uploads
-export default async function handler(req, res) {
-  await dbConnect(); // Connect to the MongoDB database
+// Function to delete a file
+const deleteFile = (filePath) => {
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
+};
 
+export default async function handler(req, res) {
+  await dbConnect();
   const { method } = req;
 
   if (method === "POST") {
     upload.single("image")(req, res, async (err) => {
       if (err) {
         console.error("Multer Error:", err);
-        return res
-          .status(500)
-          .json({ error: "Error uploading image", details: err.message });
+        return res.status(500).json({ error: "Error uploading image", details: err.message });
       }
 
       try {
-        // Destructure the fields from req.body
-
         const { name, alt, designation, description, company } = req.body;
 
-        // Check if req.file exists
         if (!req.file) {
           return res.status(400).json({ error: "No file uploaded" });
         }
 
-        const filename = req.file.filename; // Use the original filename
+        const filename = req.file.filename;
+        const imagePath = `/api/uploads/Testimonial/${filename}`;
 
-        // Create a new testimonial entry
         const newTestimonial = new Testimonial({
           name,
           alt,
@@ -62,18 +64,14 @@ export default async function handler(req, res) {
           description,
           filename,
           company,
-          path: `/uploads/Testimonial/${filename}`, // Save the image filename
+          path: imagePath,
         });
 
-        // Save the testimonial to the database
         const savedTestimonial = await newTestimonial.save();
-
-        res.status(201).json(savedTestimonial); // Return the saved testimonial
+        res.status(201).json(savedTestimonial);
       } catch (error) {
         console.error("Error saving testimonial:", error);
-        res
-          .status(500)
-          .json({ error: "Error saving testimonial", details: error.message });
+        res.status(500).json({ error: "Error saving testimonial", details: error.message });
       }
     });
   } else if (method === "GET") {
@@ -81,26 +79,25 @@ export default async function handler(req, res) {
       const testimonials = await Testimonial.find({});
       res.status(200).json(testimonials);
     } catch (error) {
-      console.error("Error fetching the testimonials:", error);
-      res.status(500).json({
-        error: "Error fetching the testimonials",
-        details: error.message,
-      });
+      console.error("Error fetching testimonials:", error);
+      res.status(500).json({ error: "Error fetching testimonials", details: error.message });
     }
   } else if (method === "PUT") {
-    // Handle update (edit) requests
     upload.single("image")(req, res, async (err) => {
       if (err) {
         console.error("Multer Error:", err);
-        return res
-          .status(500)
-          .json({ error: "Error uploading image", details: err.message });
+        return res.status(500).json({ error: "Error uploading image", details: err.message });
       }
 
-      const { id } = req.query; // Get testimonial ID from the query
+      const { id } = req.query;
       const { name, alt, designation, description, company } = req.body;
 
       try {
+        const existingTestimonial = await Testimonial.findById(id);
+        if (!existingTestimonial) {
+          return res.status(404).json({ error: "Testimonial not found" });
+        }
+
         const updateData = {
           name,
           alt,
@@ -109,49 +106,43 @@ export default async function handler(req, res) {
           company,
         };
 
-        // Check if a new image file is uploaded
         if (req.file) {
           const filename = req.file.filename;
+          const newImagePath = `/api/uploads/Testimonial/${filename}`;
+
+          // Delete old image file if it exists
+          const oldImagePath = path.join(uploadDirectory, existingTestimonial.filename);
+          deleteFile(oldImagePath);
+
           updateData.filename = filename;
-          updateData.path = `/uploads/Testimonial/${filename}`; // Update the image path
+          updateData.path = newImagePath;
         }
 
-        // Update the testimonial in the database
-        const updatedTestimonial = await Testimonial.findByIdAndUpdate(
-          id,
-          updateData,
-          { new: true }
-        );
+        const updatedTestimonial = await Testimonial.findByIdAndUpdate(id, updateData, { new: true });
 
-        if (!updatedTestimonial) {
-          return res.status(404).json({ error: "Testimonial not found" });
-        }
-
-        res.status(200).json(updatedTestimonial); // Return the updated testimonial
+        res.status(200).json(updatedTestimonial);
       } catch (error) {
         console.error("Error updating testimonial:", error);
-        res.status(500).json({
-          error: "Error updating testimonial",
-          details: error.message,
-        });
+        res.status(500).json({ error: "Error updating testimonial", details: error.message });
       }
     });
   } else if (method === "DELETE") {
-    // Handle delete requests
-    const { id } = req.query; // Get testimonial ID from the query
+    const { id } = req.query;
 
     try {
       const deletedTestimonial = await Testimonial.findByIdAndDelete(id);
       if (!deletedTestimonial) {
         return res.status(404).json({ error: "Testimonial not found" });
       }
-      res.status(204).send(); // No content
+
+      // Delete associated image file
+      const imagePath = path.join(uploadDirectory, deletedTestimonial.filename);
+      deleteFile(imagePath);
+
+      res.status(204).send();
     } catch (error) {
       console.error("Error deleting testimonial:", error);
-      res.status(500).json({
-        error: "Error deleting testimonial",
-        details: error.message,
-      });
+      res.status(500).json({ error: "Error deleting testimonial", details: error.message });
     }
   } else {
     res.status(405).json({ error: "Method not allowed" });

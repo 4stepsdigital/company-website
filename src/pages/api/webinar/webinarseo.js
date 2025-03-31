@@ -1,6 +1,8 @@
 import Webinar from "@/models/admin/webinar/Webinar";
 import WebinarSeo from "@/models/admin/webinar/WebinarSeo";
+import dbConnect from "@/utils/db";
 const blogdetailSeoApi=async (req,res)=>{
+    await dbConnect()
     const {seoData,webinar}=req.body;
     const {tags,canonicalUrl,keyword}=seoData;
    if(req.method==="POST"){ try {

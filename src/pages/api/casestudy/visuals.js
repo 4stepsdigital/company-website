@@ -5,7 +5,13 @@ import path from "path";
 import CaseVisual from "@/models/admin/casestudy/Visuals";
 import CaseStudy from "@/models/admin/casestudy/casestudy";
 // Ensure the upload directory exists
-const uploadDirectory = "./public/uploads/casestudy/visuals";
+// const uploadDirectory = "./public/uploads/casestudy/visuals";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/casestudy/visuals"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -48,7 +54,7 @@ async function handler(req, res) {
           title,
           casestudy,
           description,
-          path: `/uploads/casestudy/visuals/${req.file.filename}`,
+          path: `/api/uploads/casestudy/visuals/${req.file.filename}`,
           filename: req.file.filename,
         });
         if (!newProduct) {

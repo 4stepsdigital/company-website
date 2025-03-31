@@ -3,7 +3,13 @@ import path from "path";
 import fs from "fs";
 import dbConnect from "@/utils/db";
 import IndustryOverviewItem from "@/models/admin/Industry/IndustryOverview/IndustryOverviewItem";
-const uploadDirectory = "./public/uploads/industry/industryOverviwes";
+// const uploadDirectory = "./public/uploads/industry/industryOverviwes";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/industry/industryOverviwes"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -37,7 +43,7 @@ const apiRoute = async (req, res) => {
         industry,
       } = req.body;
 
-      console.log("solution industry Item ------> ", industry);
+      // console.log("solution industry Item ------> ", industry);
       let editorHtmlDescription;
       try {
         editorHtmlDescription = JSON.parse(editorHtmlDescriptionRaw);
@@ -53,7 +59,7 @@ const apiRoute = async (req, res) => {
         industry,
         filename: req.file?.filename || null,
         path: req.file
-          ? `/uploads/industry/industryOverviwes/${req.file.filename}`
+          ? `/api/uploads/industry/industryOverviwes/${req.file.filename}`
           : null,
       };
 

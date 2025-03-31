@@ -5,9 +5,15 @@ import dbConnect from "@/utils/db";
 import SolutionOverviewItem from "@/models/admin/solution/SolutionOverview/SolutionOverviewItem";
 import mongoose from "mongoose";
 
-const uploadDirectory = "./public/uploads/solution/SolutionOverview";
+// const uploadDirectory = "./public/uploads/solution/SolutionOverview";
 
-// Ensure the upload directory exists
+// // Ensure the upload directory exists
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/solution/SolutionOverview"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -61,7 +67,7 @@ const apiRoute = async (req, res) => {
       }
 
       const newFileName = req.file?.filename || file.filename;
-      const newFilePath = req.file ? `/uploads/solution/SolutionOverview/${req.file.filename}` : file?.path;
+      const newFilePath = req.file ? `/api/uploads/solution/SolutionOverview/${req.file.filename}` : file?.path;
 
       // DELETE OLD IMAGE IF A NEW IMAGE IS UPLOADED
       if (req.file && file?.filename) {

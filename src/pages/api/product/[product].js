@@ -8,9 +8,16 @@ import ProductHighLights from "@/models/admin/product/Highlights";
 import ProductFaq from "@/models/admin/product/Faq";
 import ProductSeo from "@/models/admin/product/Seo";
 import ProductScreenshot from "@/models/admin/product/Screenshot";
-const uploadDirectory1 = "./public/uploads/product/screenshot";
+// const uploadDirectory1 = "./public/uploads/product/screenshot";
 // Ensure the upload directory exists
-const uploadDirectory = "./public/uploads/product";
+// const uploadDirectory = "./public/uploads/product";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+const uploadDirectory1 = path.join(process.cwd(), "uploads/product/screenshot");
+
+const uploadDirectory = path.join(process.cwd(), "uploads/product"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -85,7 +92,7 @@ async function handler(req, res) {
               service,
               topics,tools,
               industry,
-              path: `/uploads/product/${req.file.filename}`, // Updated image path
+              path: `/api/uploads/product/${req.file.filename}`, // Updated image path
               filename: req.file.filename, // Updated filename
               altText,
             },

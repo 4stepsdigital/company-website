@@ -4,11 +4,17 @@ import fs from "fs";
 import dbConnect from "@/utils/db";
 import SubTechnologyServices from "@/models/admin/Tecnology/Services/IndustrySolution";
 // Define upload directory
-const uploadDirectory = "./public/uploads/technology/technologyServices";
+// const uploadDirectory = "./public/uploads/technology/technologyServices";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+
+const uploadDirectory = path.join(process.cwd(), "uploads/technology/technologyServices"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
-
 // Multer storage configuration
 const storage = multer.diskStorage({
   destination: uploadDirectory,
@@ -57,7 +63,7 @@ const apiRoute = async (req, res) => {
         subTitle,
         technology,
         filename: req.file?.filename || null,
-        path: req.file ? `/uploads/technology/technologyServices/${req.file.filename}` : file?.path,
+        path: req.file ? `/api/uploads/technology/technologyServices/${req.file.filename}` : file?.path,
       };
         if(req.file){
             const filePath = path.join(uploadDirectory, file.filename);

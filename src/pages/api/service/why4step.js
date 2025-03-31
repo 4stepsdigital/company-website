@@ -1,8 +1,10 @@
 import ServiceHero from "@/models/admin/ServicesModel/ServiceHero";
 import Why4StepService from "@/models/admin/ServicesModel/Why4StepS";
+import dbConnect from "@/utils/db";
 
 
 const why4stepApi = async (req, res) => {
+  await dbConnect()
   try {
     const { heading, SelectedPartnersData, service, overviewData } = req.body;
     const saveData = {

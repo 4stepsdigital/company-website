@@ -1,6 +1,8 @@
 import SolutionSolution from "@/models/admin/solution/solution/solution";
 import SolutionHero from "@/models/admin/solution/solutionHero";
+import dbConnect from "@/utils/db";
 const successApi = async (req, res) => {
+  await dbConnect()
   const { solution } = req.query;
   try {
     const { heading,mainEditorHtmlDescription,solutionItem } = req.body;

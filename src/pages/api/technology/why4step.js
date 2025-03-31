@@ -1,7 +1,9 @@
 import TechnologyHero from "@/models/admin/Tecnology/TechnologyHero";
 import Why4StepsTech from "@/models/admin/Tecnology/Why4StepsTech";
+import dbConnect from "@/utils/db";
 
 const why4stepApi = async (req, res) => {
+  await dbConnect()
   try {
     const { heading, SelectedPartnersData, technology, overviewData } = req.body;
     const saveData = {

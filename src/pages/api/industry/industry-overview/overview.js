@@ -1,7 +1,9 @@
 import Industry1 from "@/models/admin/Industry/Industry";
 import IndustryOverview from "@/models/admin/Industry/IndustryOverview/IndustryOverview";
+import dbConnect from "@/utils/db";
 
 const successApi = async (req, res) => {
+  await dbConnect();
   const { industry } = req.query;
   try {
     const { heading, mainEditorHtmlDescription, overviewItem } = req.body;

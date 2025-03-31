@@ -18,13 +18,28 @@ import TechnologyOverviewItem from "@/models/admin/Tecnology/TechnologyOverview/
 import TechnologyOverview from "@/models/admin/Tecnology/TechnologyOverview/TechnologyOverview";
 
 // Define upload directories
+// const uploadDirectories = {
+//   heroSection: "./public/uploads/technology/herosection",
+//   success: "./public/uploads/technology/technologysuccess",
+//   product: "./public/uploads/technology/technologyProducts",
+//   service: "./public/uploads/technology/technologyServices",
+//   solution: "./public/uploads/technology/technologysolution",
+//   overview: "./public/uploads/technology/technologysolution",
+// };
+
+// // Ensure upload directories exist
+// Object.values(uploadDirectories).forEach((dir) => {
+//   if (!fs.existsSync(dir)) {
+//     fs.mkdirSync(dir, { recursive: true });
+//   }
+// });
 const uploadDirectories = {
-  heroSection: "./public/uploads/technology/herosection",
-  success: "./public/uploads/technology/technologysuccess",
-  product: "./public/uploads/technology/technologyProducts",
-  service: "./public/uploads/technology/technologyServices",
-  solution: "./public/uploads/technology/technologysolution",
-  overview: "./public/uploads/technology/technologysolution",
+  heroSection: path.join(process.cwd(), "uploads/technology/herosection"),
+  success: path.join(process.cwd(), "uploads/technology/technologysuccess"),
+  product: path.join(process.cwd(), "uploads/technology/technologyProducts"),
+  service: path.join(process.cwd(), "uploads/technology/technologyServices"),
+  solution: path.join(process.cwd(), "uploads/technology/technologysolution"),
+  overview:path.join(process.cwd(), "uploads/technology/technologysolution"),
 };
 
 // Ensure upload directories exist
@@ -33,6 +48,7 @@ Object.values(uploadDirectories).forEach((dir) => {
     fs.mkdirSync(dir, { recursive: true });
   }
 });
+
 
 // Multer configuration
 const storage = multer.diskStorage({
@@ -65,7 +81,7 @@ const apiRoute = async (req, res) => {
         technologyName,
         technologyType,
         contentsummary,
-        path: `/uploads/technology/herosection/${req.file.filename}`,
+        path: `/api/uploads/technology/herosection/${req.file.filename}`,
       };
 
       try {

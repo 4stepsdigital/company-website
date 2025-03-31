@@ -6,7 +6,14 @@ import path from "path";
 import ProductScreenshot from "@/models/admin/product/Screenshot";
 
 // Ensure the upload directory exists
-const uploadDirectory = "./public/uploads/product/screenshot";
+// const uploadDirectory = "./public/uploads/product/screenshot";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+
+const uploadDirectory = path.join(process.cwd(), "uploads/product/screenshot"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -55,7 +62,7 @@ async function handler(req, res) {
           title,
           product,
           description,
-          path: `/uploads/product/screenshot/${req.file.filename}`,
+          path: `/api/uploads/product/screenshot/${req.file.filename}`,
           filename: req.file.filename,
         });
         if(!newProduct){

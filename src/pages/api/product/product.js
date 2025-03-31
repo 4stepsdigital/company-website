@@ -5,7 +5,13 @@ import fs from "fs";
 import path from "path";
 
 // Ensure the upload directory exists
-const uploadDirectory = "./public/uploads/product";
+// const uploadDirectory = "./public/uploads/product";
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/product"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -60,7 +66,7 @@ async function handler(req, res) {
           description,
           service,
           industry,
-          path: `/uploads/product/${req.file.filename}`,
+          path: `/api/uploads/product/${req.file.filename}`,
           filename: req.file.filename,
           altText,
           topics,tools

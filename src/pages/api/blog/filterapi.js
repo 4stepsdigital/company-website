@@ -1,6 +1,8 @@
 import BlogDetail from "@/models/admin/blog copy/BlogDetail";
+import dbConnect from "@/utils/db";
 
 const filterapi = async (req, res) => {
+  await dbConnect()
   const { industry, tools, topics, department } = req.query;
 
   let pipeline = [];

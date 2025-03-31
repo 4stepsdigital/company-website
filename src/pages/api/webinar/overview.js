@@ -1,7 +1,9 @@
 import Overview from "@/models/admin/webinar/Overview";
 import Webinar from "@/models/admin/webinar/Webinar";
+import dbConnect from "@/utils/db";
 
 const overviewApi = async (req, res) => {
+  await dbConnect()
   const { aboutEditorHtml, webinar } = req.body;
 
   // Log the incoming request method for debugging

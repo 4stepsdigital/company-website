@@ -1,5 +1,7 @@
 import Product from "@/models/admin/product/product";
+import dbConnect from "@/utils/db";
 const filterapi = async (req, res) => {
+    await dbConnect()
     const { industry, tools,topics,services } = req.query;
    
     let pipeline = [];

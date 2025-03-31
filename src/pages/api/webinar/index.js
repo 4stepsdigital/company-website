@@ -4,7 +4,13 @@ import fs from 'fs';
 import dbConnect from '@/utils/db';
 import WebinarPromo from '@/models/admin/webinar/WebinarPromo';
 // Set up the upload directory
-const uploadDirectory = './public/uploads/webinarpromo';
+// const uploadDirectory = './public/uploads/webinarpromo';
+// if (!fs.existsSync(uploadDirectory)) {
+//   fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
+
+const uploadDirectory = path.join(process.cwd(), "uploads/webinarpromo"); // Define your upload directory
+// Ensure upload directory exists
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -47,7 +53,7 @@ const apiRoute = async (req, res) => {
         title,
         description,
         filename: req.file.filename,
-        videoPath: `/uploads/webinarpromo/${req.file.filename}`,
+        videoPath: `/api/uploads/webinarpromo/${req.file.filename}`,
       } : null;
 
       if (fileData) {
@@ -63,7 +69,7 @@ const apiRoute = async (req, res) => {
             );
 
             // Remove the old file if it exists
-            if (existingFile.filename) {
+            if (existingFile?.filename) {
               fs.unlinkSync(path.join(uploadDirectory, existingFile.filename));
             }
 

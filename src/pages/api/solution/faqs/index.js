@@ -1,6 +1,8 @@
 import SolutionFaq from "@/models/admin/solution/Faq/IndustryFaq";
 import SolutionHero from "@/models/admin/solution/solutionHero";
+import dbConnect from "@/utils/db";
 const faqsApi = async (req, res) => {
+  await dbConnect()
     if (req.method === "POST") {
       const { faq ,solution } = req.body;
       if (!solution) {

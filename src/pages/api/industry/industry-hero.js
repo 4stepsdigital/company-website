@@ -16,15 +16,28 @@ import Benefits from "@/models/admin/Industry/Benefits/Benefits";
 import InSuccess from "@/models/admin/Industry/InSuccess";
 
 // Define upload directories
-const uploadDirectories = {
-  heroSection: "./public/uploads/industry/herosection",
-  success: "./public/uploads/industry/industrysuccess",
-  product: "./public/uploads/industry/industryProducts",
-  service: "./public/uploads/industry/industryServices",
-  solution: "./public/uploads/industry/industrysolution",
-};
+// const uploadDirectories = {
+//   heroSection: "./public/uploads/industry/herosection",
+//   success: "./public/uploads/industry/industrysuccess",
+//   product: "./public/uploads/industry/industryProducts",
+//   service: "./public/uploads/industry/industryServices",
+//   solution: "./public/uploads/industry/industrysolution",
+// };
 
-// Ensure upload directories exist
+// // Ensure upload directories exist
+// Object.values(uploadDirectories).forEach((dir) => {
+//   if (!fs.existsSync(dir)) {
+//     fs.mkdirSync(dir, { recursive: true });
+//   }
+// });
+
+const uploadDirectories = {
+  heroSection: path.join(process.cwd(), "uploads/industry/herosection"),
+  success: path.join(process.cwd(), "uploads/industry/industrysuccess"),
+  product: path.join(process.cwd(), "uploads/industry/industryProducts"),
+  service: path.join(process.cwd(), "uploads/industry/industryServices"),
+  solution: path.join(process.cwd(), "uploads/industry/industrysolution"),
+};
 Object.values(uploadDirectories).forEach((dir) => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
@@ -61,7 +74,7 @@ const apiRoute = async (req, res) => {
         description,
         industryName,
         contentsummary,
-        path: `/uploads/industry/herosection/${req.file.filename}`,
+        path: `/api/uploads/industry/herosection/${req.file.filename}`,
       };
 
       try {

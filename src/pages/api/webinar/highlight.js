@@ -1,8 +1,10 @@
 
 import KeyAndHighLights from "@/models/admin/webinar/KeyAndHighLights";
 import Webinar from "@/models/admin/webinar/Webinar";
+import dbConnect from "@/utils/db";
 
 const overviewApi = async (req, res) => {
+    await dbConnect()
     const { aboutEditorHtml, webinar } = req.body;
     // console.log("Request Method:", req.method);
 
